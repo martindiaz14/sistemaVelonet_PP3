@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body class="bg-stone-50 text-gray-100">
+
+    <header id="header"></header>
+
+    <div class="flex flex-space-x-2 items-center m-10">
+        <div class="relative text-black max-w-xs">
+            <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+
+            <input type="text" id="searchInput" placeholder="Buscar cliente o N°"
+                class="w-full py-2 pl-10 pr-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+        </div>
+
+
+        <button id="filter-button"
+            class="bg-sky-600 text-white mr-14 rounded-lg mr-1 ml-3  px-6 py-2 shadow-lg focus:ring-indigo-500 focus:border-indigo-500">
+            ▼
+        </button>
+
+        <div id="popup-div"
+            class="absolute hidden bg-stone-50 p-4 top-36 left-[320px] text-black  rounded-lg border-2 border-black space-y-2  z-10 w-96">
+
+            <h3 class="text-lg font-bold border-b pb-1 mb-2">Configuración de Filtros</h3>
+
+            <div>
+                <label for="time-select" class="font-medium block mb-1">Tiempo</label>
+                <select id="time-select" class="w-full p-2 border border-gray-300 rounded">
+                    <option selected>...</option>
+                    <option value="Dia">Día</option>
+                    <option value="Semana">Semana</option>
+                    <option value="Mes">Mes</option>
+                    <option value="Año">Año</option>
+                </select>
+            </div>
+
+            <p class="font-medium text-sm mt-3">Fecha Personalizada:</p>
+            <div class="flex space-x-4 items-center">
+
+                <div>
+                    <label for="date-from" class="block text-sm mb-1">Desde:</label>
+                    <input id="date-from" type="date"
+                        class="w-full bg-sky-600 rounded-lg px-2 py-1 shadow-lg text-white focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+
+                <div>
+                    <label for="date-to" class="block text-sm mb-1">Hasta:</label>
+                    <input id="date-to" type="date"
+                        class="w-full bg-sky-600 rounded-lg px-2 py-1 shadow-lg text-white focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+            </div>
+
+            <div>
+                <label for="type-select" class="font-medium block mb-1 mt-3">Tipo</label>
+                <select id="type-select" class="w-full p-2 border border-gray-300 rounded">
+                    <option selected>...</option>
+                    <option value="Tecnico">Técnico</option>
+                    <option value="Comercial">Comercial</option>
+                    <option value="Industrial">Industrial</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="severity-select" class="font-medium block mb-1 mt-3">Gravedad</label>
+                <select id="severity-select" class="w-full p-2 border border-gray-300 rounded">
+                    <option selected>...</option>
+                    <option value="Baja">Baja</option>
+                    <option value="Medio">Media</option>
+                    <option value="Alta">Alta</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="recurrence-select" class="font-medium block mb-1 mt-3">Recurrencia</label>
+                <select id="recurrence-select" class="w-full p-2 border border-gray-300 rounded">
+                    <option selected>...</option>
+                    <option value="Baja">Baja</option>
+                    <option value="Medio">Media</option>
+                    <option value="Alta">Alta</option>
+                </select>
+            </div>
+
+
+            <div class="flex justify-end pt-4">
+                <button id="apply-btn"
+                    class="bg-sky-700 font-bold hover:bg-sky-800 text-white py-2 px-4 rounded shadow-md">
+                    Aplicar Filtros
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <ul class="w-full p-2 bg-sky-600 " id="container">
+
+    </ul>
+
+
+</body>
+<script type="module" src="./index.js"></script>
+
+
+</html>

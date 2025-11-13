@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body class="bg-stone-50 text-gray-100">
+
+    <header id="header"></header>
+
+    <div class="flex justify-between items-center m-10 w-full">
+
+        <div class="flex items-center space-x-4">
+
+            <div class="relative text-black max-w-xs">
+                <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+
+                <input type="text" id="searchInput" placeholder="Buscar cliente o DNI"
+                    class="w-full py-2 pl-10 pr-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="w-full p-2 bg-sky-600 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3 " id="container">
+
+    </div>
+
+
+</body>
+<script type="module" src="./index.js"></script>
+
+</html>

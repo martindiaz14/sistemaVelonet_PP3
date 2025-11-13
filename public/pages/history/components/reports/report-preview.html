@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vista Previa de Reporte</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        body {
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+
+        .page-break {
+            page-break-after: always;
+            break-after: page;
+        }
+
+        .report-a4 {
+            width: 210mm;
+            min-height: 297mm;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 15mm; 
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        .report-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .report-section {
+            margin-bottom: 15px;
+        }
+
+        .report-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .report-table th,
+        .report-table td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .report-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 350px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .chart-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .chart-item {
+            flex: 0 0 49%;
+            max-width: 49%;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            height: 300px;
+        }
+
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+                background-color: white;
+            }
+
+            .report-a4 {
+                margin-top: 20px;
+                width: 100%;
+                min-height: auto;
+                box-shadow: none;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="report-a4" id="report-content-area">
+        <div class="report-header">
+            <h1 class="text-2xl font-bold mb-2">INFORME DE <span id="report-name">[NOMBRE DE REPORTE]</span></h1>
+            <p>Fecha: <span id="report-date"></span></p>
+            <p>Parámetros: <span id="report-params"></span></p>
+        </div>
+
+        <div id="report-tables-area">
+        </div>
+
+        <div id="report-charts-area">
+            <h2 class="text-xl font-bold mt-8 mb-4">Gráficos de Visualización</h2>
+            <div id="charts-display-area" class="chart-row">
+            </div>
+        </div>
+
+        <button id="download-pdf-btn"
+            class="fixed bottom-4 right-4 bg-sky-700 text-white py-3 px-6 rounded-lg shadow-xl hover:bg-sky-800">
+            Descargar PDF
+        </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script type="module" src="./report-preview.js"></script>
+
+</body>
+
+</html>
