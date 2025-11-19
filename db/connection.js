@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import { startNotificationScheduler } from "../controllers/services/gmail.service.js";
-import { startWhatsappBot } from "../controllers/services/whattsapp/botStarter.js";
+import { startNotificationScheduler } from "../services/gmail.service.js";
+import { startWhatsappBot } from "../services/whattsapp/botStarter.js";
 import 'dotenv/config'
 const MONGODB_URI = process.env.MONGODB_URI
 
@@ -19,7 +19,7 @@ export const connectToDatabase = async () => {
 
     if (!cached.conn.isSchedulerStarted) {
         startNotificationScheduler();
-
+        startWhatsappBot();
         cached.conn.isSchedulerStarted = true;
         console.log("✅ Sistema de notificación automática iniciado.");
     }

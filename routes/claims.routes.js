@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { readFile, writeFile } from 'fs/promises';
 import {claimsByState, closeClaim, searchClaims, filterClaims, createClaims} from "../db/actions/claims.actions.js";
-import { generatePredefinedReport } from '../controllers/reports.controller.js';
+import { generatePredefinedReport } from '../services/reports.service.js';
 
 const router = Router();
 

@@ -1,5 +1,3 @@
-// /services/whatsapp/dbLoaders.js
-
 import clients from "../../db/schemas/clients.schema.js";
 import types from "../../db/schemas/type.schema.js"; 
 import Recurrence from "../../db/schemas/recurrence.schema.js"; 

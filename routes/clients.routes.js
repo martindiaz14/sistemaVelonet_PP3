@@ -1,7 +1,6 @@
 import { Router } from "express";
 import {readFile} from 'fs/promises';
-import { clientsAll, searchClients,createClient } from "../db/actions/clients.actions.js";
-
+import { clientsAll, searchClients } from "../db/actions/clients.actions.js";
 
 
 const router = Router();
@@ -31,20 +30,6 @@ router.get('/search', async (req, res) => {
         res.status(500).json({ status: false, message: 'Error interno del servidor al buscar clientes.' });
     }
 });
-
-
-router.post('/create' , async(req, res)=>{
-const {img,name,dni,phone,address,count_calls ,IdType,last_rating} = req.body
-
-try {
-    const result = await createClient({img,name,dni,phone,address,count_calls,IdType ,last_rating})
-    res.status(200).json(result)
-} catch (error) {
-    console.error("Error en la ruta de búsqueda de clientes:", error);
-    res.status(400).json({status:false})
-}
-
-})
 
 
 

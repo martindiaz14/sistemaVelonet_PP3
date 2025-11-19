@@ -1,8 +1,8 @@
 import nodemailer from 'nodemailer';
 import cron from 'node-cron';
-import Claims from '../../db/schemas/claims.schema.js';
-import Employee from '../../db/schemas/employees.schema.js';
-import Client from '../../db/schemas/clients.schema.js'; 
+import Claims from '../db/schemas/claims.schema.js';
+import Employee from '../db/schemas/employees.schema.js';
+import Client from '../db/schemas/clients.schema.js'; 
 
 
 const transporter = nodemailer.createTransport({

@@ -34,7 +34,6 @@ async function handleReportActions() {
         return;
     }
 
-    // 🚨 CLAVE: Asegurar la limpieza del período
     let periodCleaned = timePeriod;
     let dateFromCleaned = dateFrom;
     let dateToCleaned = dateTo;
@@ -43,7 +42,6 @@ async function handleReportActions() {
         dateFromCleaned = '';
         dateToCleaned = '';
     } else if (timePeriod === 'Personalizado' && dateFrom === '' && dateTo === '') {
-        // Opción segura si el usuario no introduce nada en el rango: usar "Todo"
         periodCleaned = 'Todo';
     }
 
@@ -57,7 +55,6 @@ async function handleReportActions() {
         setData('currentReportData', reportData);
         setData('currentReportOptions', reportOptions);
 
-        // 🚨 Abrir nueva ventana para la vista previa
         window.open('./components/reports/report-preview.html', '_blank', 'width=1200,height=800,scrollbars=yes');
 
     } catch (error) {
@@ -66,14 +63,8 @@ async function handleReportActions() {
     }
 }
 
-// ====================================================================
-// ARRANQUE DE LA APLICACIÓN
-// ====================================================================
 
 document.addEventListener('DOMContentLoaded', async () => {
-    // Aquí iría el resto de tu lógica DOMContentLoaded (renderNavbar, renderclaims, etc.)
-
-    // 🚨 CLAVE: Ejecutar el setup de listeners
     setupReportListeners(handleReportActions);
 });
 const renderclaims = async () => {
@@ -163,7 +154,7 @@ const displayClaims = (claims) => {
 };
 
 const rendersearchclaims = async () => {
-    const claims = await addclaimsByState('open');
+    const claims = await addclaimsByState('closed');
     displayClaims(claims);
 };
 

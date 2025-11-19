@@ -6,20 +6,15 @@ import Severity from "../db/schemas/severity.schema.js";
 
 const { ObjectId } = mongoose.Types;
 
-// ====================================================================
-// VARIABLES GLOBALES DE MAPEO (Asumimos que se llenan al iniciar la app)
-// ====================================================================
 let RECURRENCE_OPTIONS = {};
 let SEVERITY_OPTIONS = {}
 let CLAIM_TYPE_OPTIONS = {}
-// ====================================================================
 
 export async function loadClaimTypeOptions() {
     try {
         const claimstypes = await Type.find({});
         const options = {};
         claimstypes.forEach((type) => {
-            // Mapeamos por nombre como clave, y el valor contiene el ID
             options[type.name] = { label: type.name, id: type._id.toString() };
         });
         CLAIM_TYPE_OPTIONS = options;
@@ -57,19 +52,11 @@ export async function loadSeveritiesOptions() {
     }
 }
 
-// ====================================================================
-// FUNCIÓN AUXILIAR DE MAPEO (Nueva)
-// ====================================================================
 
-/**
- * Convierte el mapa de opciones (Nombre -> {id, label}) a un mapa Inverso (ID -> Nombre).
- * Esto es necesario para la proyección final de MongoDB.
- */
 const buildReverseMap = (optionsMap) => {
     const reverseMap = {};
     for (const key in optionsMap) {
         if (optionsMap.hasOwnProperty(key)) {
-            // Usamos el ID como clave (asegurando que es string para la comparación)
             reverseMap[optionsMap[key].id] = optionsMap[key].label;
         }
     }
@@ -77,16 +64,13 @@ const buildReverseMap = (optionsMap) => {
 };
 
 
-// ====================================================================
-// FUNCIÓN PRINCIPAL DEL CONTROLADOR (Corregida)
-// ====================================================================
 const calculateDateRange = (period, dateFrom, dateTo) => {
     if (period === 'Todo') {
         return { start: null, end: null };
     }
 
     let start = dateFrom ? new Date(dateFrom) : null;
-    let end = dateTo ? new Date(dateTo) : new Date(); // Hoy
+    let end = dateTo ? new Date(dateTo) : new Date();
 
     if (!start && period && period !== 'Personalizado') {
         const now = new Date();
@@ -112,10 +96,6 @@ const calculateDateRange = (period, dateFrom, dateTo) => {
     return { start, end };
 };
 
-// ====================================================================
-// FUNCIONES AUXILIARES DE PIPELINE
-// ====================================================================
-
 const getBasePipeline = (start, end) => {
     let matchStage = {};
     if (start && end) {
@@ -126,7 +106,7 @@ const getBasePipeline = (start, end) => {
         { $match: matchStage },
         {
             $lookup: {
-                from: 'clients', // Nombre de la colección de clientes
+                from: 'clients',
                 localField: 'IdClient',
                 foreignField: '_id',
                 as: 'clientDetails'
@@ -136,9 +116,6 @@ const getBasePipeline = (start, end) => {
     ];
 };
 
-// ====================================================================
-// FUNCIÓN PRINCIPAL DEL CONTROLADOR
-// ====================================================================
 
 export const generatePredefinedReport = async (req, res) => {
     let reportKey = 'UNKNOWN';
@@ -151,7 +128,6 @@ export const generatePredefinedReport = async (req, res) => {
         let reportData = {};
 
 
-        // 3. Agregación de Tendencia (TREND)
         if (reportKey === 'DEMAND_TREND' || reportKey === 'OPERATIONAL_SUMMARY') {
             reportData.trendData = await Claims.aggregate([
                 ...pipelineBase,
@@ -168,46 +144,41 @@ export const generatePredefinedReport = async (req, res) => {
             ]);
         }
 
-        // 4. Agregación de Riesgo (SEVERITY / RECURRENCE)
         if (reportKey === 'RISK_SEVERITY' || reportKey === 'OPERATIONAL_SUMMARY') {
 
-            // --- CONTEO Y MAPEO DE SEVERIDAD ---
             const severityAgg = await Claims.aggregate([
                 ...pipelineBase,
                 { $group: { _id: '$Idseverity', count: { $sum: 1 } } },
                 {
-                    $lookup: { // 🚨 LOOKUP para obtener el nombre
-                        from: 'severities', // Nombre de la colección en la DB
+                    $lookup: { 
+                        from: 'severities',
                         localField: '_id',
                         foreignField: '_id',
                         as: 'details'
                     }
                 },
                 { $unwind: '$details' },
-                { $project: { _id: 0, name: '$details.name', count: 1 } } // Devolvemos el nombre
+                { $project: { _id: 0, name: '$details.name', count: 1 } }
             ]);
             reportData.severityCounts = severityAgg;
 
-
-            // --- CONTEO Y MAPEO DE RECURRENCIA ---
             const recurrenceAgg = await Claims.aggregate([
                 ...pipelineBase,
                 { $group: { _id: '$Idrecurrence', count: { $sum: 1 } } },
                 {
-                    $lookup: { // 🚨 LOOKUP para obtener el nombre
-                        from: 'recurrences', // Nombre de la colección en la DB
+                    $lookup: {
+                        from: 'recurrences', 
                         localField: '_id',
                         foreignField: '_id',
                         as: 'details'
                     }
                 },
                 { $unwind: '$details' },
-                { $project: { _id: 0, name: '$details.name', count: 1 } } // Devolvemos el nombre
+                { $project: { _id: 0, name: '$details.name', count: 1 } }
             ]);
             reportData.recurrenceCounts = recurrenceAgg;
         }
 
-        // 5. Agregación de Calificación (RATING)
         if (reportKey === 'CUSTOMER_QUALITY' || reportKey === 'OPERATIONAL_SUMMARY') {
             reportData.ratingCounts = await Claims.aggregate([
                 ...pipelineBase,
@@ -232,7 +203,6 @@ export const generatePredefinedReport = async (req, res) => {
                     }
                 },
 
-                // 3. Proyección y Ordenamiento Final
                 { $project: { _id: 0, rating: '$_id', count: 1 } },
                 { $sort: { rating: 1 } }
             ]);

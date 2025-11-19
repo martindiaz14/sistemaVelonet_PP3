@@ -123,7 +123,6 @@ const renderclaims = async () => {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-
     await renderclaims()
 })
 

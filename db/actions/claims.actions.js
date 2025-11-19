@@ -5,13 +5,13 @@ import types from "../schemas/type.schema.js";
 import recurrence from "../schemas/recurrence.schema.js";
 import employee from "../schemas/employees.schema.js";
 import severity from "../schemas/severity.schema.js"
+import bcrypt from 'bcryptjs';
 
-
-export const createClaims = async ({IdClient,IdEmployee, date, claimNumber,desc,state,Idrecurrence,Idseverety,dateResolution,descTec,resolutionTime}) => {
+export const createClaims = async ({ IdClient, IdEmployee, date, claimNumber, desc, state, Idrecurrence, Idseverety, dateResolution, descTec, resolutionTime }) => {
     try {
         await connectToDatabase()
 
-        const res = await claims.create({ IdClient,IdEmployee, date, claimNumber,desc,state,Idrecurrence,Idseverety,dateResolution,descTec,resolutionTime })
+        const res = await claims.create({ IdClient, IdEmployee, date, claimNumber, desc, state, Idrecurrence, Idseverety, dateResolution, descTec, resolutionTime })
         return JSON.parse(JSON.stringify(res))
     } catch (error) {
         console.log(error)
@@ -45,8 +45,6 @@ const calculateResolutionTime = (startDate, endDate) => {
 
     return output.trim();
 };
-
-
 
 /**
  * @param {number} claimState
@@ -104,8 +102,6 @@ export const claimsByState = async (claimState) => {
         return [];
     }
 }
-
-
 
 /**
  * @param {string} claimId
@@ -165,44 +161,110 @@ export const closeClaim = async (claimId, updateData) => {
  */
 export const searchClaims = async (searchTerm, claimState) => {
     try {
-        await connectToDatabase();
+        await connectToDatabase(); 
 
-        const escapedSearchTerm = searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const trimmedTerm = searchTerm.trim();
+        const escapedSearchTerm = trimmedTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-        const isNumeric = /^\d+$/.test(searchTerm.trim());
+        const isNumeric = /^\d+$/.test(trimmedTerm);
 
         let clientQuery = {};
-        let claimQuery = {};
+        let claimQuery = {}; 
+        let clientIds = [];
+        let clientsFoundByDni = [];
 
-        if (isNumeric) {
-            const numericClaimNumber = parseInt(searchTerm.trim(), 10);
-            claimQuery = { claimNumber: numericClaimNumber };
+        if (trimmedTerm.length === 0) {
+            console.log("ℹ️ Busqueda vacía. Trayendo todos los reclamos con state = 2.");
+            const stateQuery = { state: claimState };
+            
+            const claimsData = await claims.find(stateQuery)
+                .populate({
+                    path: 'IdClient',
+                    select: 'name address phone dni IdType count_calls profilePictureUrl',
+                    populate: {
+                        path: 'IdType',
+                        select: 'name'
+                    }
+                })
+                .populate({ path: 'Idrecurrence', select: 'name' })
+                .populate({ path: 'Idseverity', select: 'name' })
+                .populate('IdEmployee', 'name')
+                .sort({ date: -1 })
+                .exec();
 
-            clientQuery = { name: { $regex: new RegExp(escapedSearchTerm, 'i') } };
+            const dateOptions = { day: '2-digit', month: '2-digit', year: 'numeric' };
+            const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: false };
 
-        } else {
-            clientQuery = { name: { $regex: new RegExp(escapedSearchTerm, 'i') } };
+            const formatDateTime = (dateField) => {
+                if (dateField) {
+                    const date = new Date(dateField);
+                    const formattedDate = date.toLocaleDateString('es-ES', dateOptions);
+                    const formattedTime = date.toLocaleTimeString('es-ES', timeOptions);
+                    return `${formattedDate} ${formattedTime}`;
+                }
+                return 'N/A';
+            };
+
+            const formattedClaims = claimsData.map(claim => {
+                let plainClaim = claim.toObject ? claim.toObject() : claim;
+                plainClaim.date = formatDateTime(plainClaim.date);
+                plainClaim.dateResolution = formatDateTime(plainClaim.dateResolution);
+                return plainClaim;
+            });
+            
+            return JSON.parse(JSON.stringify(formattedClaims));
         }
 
-        const clientIds = await clients.find(clientQuery).select('_id');
+        clientQuery = { name: { $regex: new RegExp(escapedSearchTerm, 'i') } };
+
+
+        if (isNumeric) {
+            console.warn("⚠️ Búsqueda por DNI: Realizando comparación lenta con bcrypt para encontrar el cliente.");
+            
+            const clientsByName = await clients.find(clientQuery).select('_id name dni');
+
+            const allClientsWithDni = await clients.find({}).select('_id dni');
+
+            for (const client of allClientsWithDni) {
+                const match = await bcrypt.compare(trimmedTerm, client.dni);
+                if (match) {
+                    clientsFoundByDni.push(client);
+                }
+            }
+
+            const uniqueClientIds = new Set(clientsByName.map(c => c._id.toString()));
+            
+            for (const dniClient of clientsFoundByDni) {
+                uniqueClientIds.add(dniClient._id.toString());
+            }
+
+            clientIds = Array.from(uniqueClientIds).map(id => new mongoose.Types.ObjectId(id));
+
+            const numericClaimNumber = parseInt(trimmedTerm, 10);
+            claimQuery = { claimNumber: numericClaimNumber };
+            
+        } else {
+            clientIds = await clients.find(clientQuery).select('_id');
+            clientIds = clientIds.map(client => client._id);
+        }
 
         const queryConditions = [];
 
         if (clientIds.length > 0) {
-            queryConditions.push({ IdClient: { $in: clientIds.map(client => client._id) } });
+            queryConditions.push({ IdClient: { $in: clientIds } });
         }
-
+        
         if (isNumeric) {
-            queryConditions.push(claimQuery);
+            queryConditions.push(claimQuery); 
         }
 
         if (queryConditions.length === 0) {
             return [];
         }
 
-        const stateCondition = { state: claimState };
-
-        const query = { $and: [stateCondition, { $or: queryConditions }] };
+        const stateCondition = { state: claimState }; 
+        
+        const query = { $and: [stateCondition, { $or: queryConditions }] }; 
 
         const claimsData = await claims.find(query)
             .populate({
@@ -213,14 +275,8 @@ export const searchClaims = async (searchTerm, claimState) => {
                     select: 'name'
                 }
             })
-            .populate({
-                path: 'Idrecurrence',
-                select: 'name'
-            })
-            .populate({
-                path: 'Idseverity',
-                select: 'name'
-            })
+            .populate({ path: 'Idrecurrence', select: 'name' })
+            .populate({ path: 'Idseverity', select: 'name' })
             .populate('IdEmployee', 'name')
             .sort({ date: -1 })
             .exec();
@@ -249,11 +305,9 @@ export const searchClaims = async (searchTerm, claimState) => {
 
     } catch (error) {
         console.error("❌ Error en searchClaims:", error);
-        throw error;
+        throw new Error(`Error en la búsqueda: 500 - Error interno del servidor durante la búsqueda.`);
     }
 };
-
-
 
 /**
  * @param {object} filters
@@ -297,7 +351,7 @@ export const filterClaims = async (filters) => {
 
         if (filters.dateTo) {
             dateFilter.$lte = new Date(filters.dateTo);
-            dateFilter.$lte.setHours(23, 59, 59, 999); 
+            dateFilter.$lte.setHours(23, 59, 59, 999);
         }
 
         if (Object.keys(dateFilter).length > 0) {

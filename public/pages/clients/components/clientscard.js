@@ -14,7 +14,7 @@ export const clientscard = (data) => {
             <div class="space-y-2 w-full mt-4">
 
                 <p id="name-${data._id}">Nombre/y Apellido: <span class="font-bold">${data.name}</span></p>
-                <p id="dni-${data._id}">DNI: <span class="font-bold">${data.dni}</span></p>
+                <p id="dni-${data._id}">DNI: <span class="font-bold">XXXXXXXXX</span></p>
                 <p id="adress-${data._id}">Direccion: <span class="font-bold">${data.address}</span></p>
                 <p id="phone-${data._id}">Tel: <span class="font-bold">${data.phone}</span></p>
                 <hr class="border-gray-300">

@@ -1,8 +1,3 @@
-// /components/reports/previewRenderer.js
-
-// NOTA: Se asume que drawApexChartInPreview y drawApexLineChartInPreview
-// están definidas en este archivo o importadas (si usas un archivo chartRenderer.js separado).
-
 const CHART_COLORS = {
     GRAVITY_COLORS: ['#10B981', '#F59E0B', '#EF4444'], 
     RATING_COLORS: ['#EF4444', '#F97316', '#FACC15', '#84CC16', '#10B981'], 
@@ -12,13 +7,6 @@ const CHART_COLORS = {
     }
 };
 
-// ====================================================================
-// UTILIDADES DE DIBUJO (MOCK - ASUME QUE ESTÁN DEFINIDAS EN OTRO LUGAR O AQUÍ)
-// ====================================================================
-
-// --- (CÓDIGO DE LAS FUNCIONES drawApexChartInPreview y drawApexLineChartInPreview DEBE ESTAR AQUÍ) ---
-
-/** Dibuja el gráfico de Barras/Circular (ApexCharts) en un DIV específico. */
 export function drawApexChartInPreview(data, chartType, title, targetDivId) {
 if (!Array.isArray(data) || data.length === 0) {
         console.warn(`Skipping chart drawing for ${title}: No valid data array received.`);
@@ -51,7 +39,6 @@ if (!Array.isArray(data) || data.length === 0) {
     return chart; 
 }
 
-/** Dibuja el gráfico de Líneas de Tendencia (ApexCharts) en un DIV específico. */
 export function drawApexLineChartInPreview(data, title, targetDivId) {
     if (!data || data.length === 0) return null;
     const targetDiv = document.getElementById(targetDivId);
@@ -80,7 +67,6 @@ export function drawApexLineChartInPreview(data, title, targetDivId) {
 }
 
 
-/** Genera el código HTML para una tabla. */
 export function generateTableHTML(headers, data, title) {
     if (!data || data.length === 0) return '';
 
@@ -97,12 +83,10 @@ export function generateTableHTML(headers, data, title) {
     data.forEach(row => {
         tableHtml += `<tr>`;
         
-        // 🚨 CORRECCIÓN CLAVE: Mapear la data de la fila usando las claves esperadas por el backend
         headers.forEach(header => {
             const headerKey = header.toLowerCase().replace(/\s/g, ''); 
             let dataKey;
-            
-            // Determinar la clave de la data del backend (rating, name, date, created, resolved)
+
             if (headerKey === 'rating') dataKey = 'rating';
             else if (headerKey === 'nombre') dataKey = 'name';
             else if (headerKey === 'conteo') dataKey = 'count';
@@ -111,7 +95,6 @@ export function generateTableHTML(headers, data, title) {
             else if (headerKey === 'resueltos') dataKey = 'resolved';
             else dataKey = headerKey; 
 
-            // Tomar el valor, incluso si es 0, y evitar errores si es undefined
             const displayValue = row[dataKey] !== undefined ? row[dataKey] : '';
             tableHtml += `<td>${displayValue}</td>`;
         });
@@ -123,15 +106,11 @@ export function generateTableHTML(headers, data, title) {
 }
 
 
-// ====================================================================
-// FUNCIÓN ORQUESTADORA DE RENDERIZADO
-// ====================================================================
 
 export async function renderReportContent() {
     const reportDataString = localStorage.getItem('currentReportData');
     const reportOptionsString = localStorage.getItem('currentReportOptions');
-    
-    // ... (rest of the logic) ...
+
 
     if (!reportDataString || !reportOptionsString) {
         document.getElementById('report-content-area').innerHTML = '<p class="text-center text-red-500">No se encontraron datos de reporte para mostrar. Vuelve a la página principal e inténtalo de nuevo.</p>';
@@ -154,7 +133,6 @@ export async function renderReportContent() {
     let chartCounter = 0; 
     let renderPromises = [];
 
-    // [RENDER HEADER]
     document.getElementById('report-name').textContent = reportOptions.reportKey.replace(/_/g, ' ');
     document.getElementById('report-date').textContent = new Date().toLocaleDateString();
     let paramsText = `Período: ${reportOptions.period}`;
@@ -164,7 +142,6 @@ export async function renderReportContent() {
     document.getElementById('report-params').textContent = paramsText;
     
     
-    // [RENDER BODY - LÓGICA DE SWITCH CASE]
     switch (reportOptions.reportKey) {
         
         case 'DEMAND_TREND':
@@ -210,21 +187,18 @@ export async function renderReportContent() {
             break;
             
         case 'OPERATIONAL_SUMMARY':
-            // 1. Tendencia
             if (reportData.trendData) {
                 tablesArea.innerHTML += generateTableHTML(['Fecha', 'Creados', 'Resueltos'], reportData.trendData, 'Datos de Tendencia');
                 chartsDisplayArea.innerHTML += `<div class="chart-item" id="chart-${chartCounter}"></div>`;
                 const chartInstance = drawApexLineChartInPreview(reportData.trendData, 'Tendencia Creados/Resueltos', `chart-${chartCounter++}`);
                 if (chartInstance && chartInstance.exec && chartInstance.exec.promise) { renderPromises.push(chartInstance.exec.promise); }
             }
-            // 2. Severidad
             if (reportData.severityCounts) {
                 tablesArea.innerHTML += generateTableHTML(['Nombre', 'Conteo'], reportData.severityCounts, 'Reclamos por Gravedad');
                 chartsDisplayArea.innerHTML += `<div class="chart-item" id="chart-${chartCounter}"></div>`;
                 const chartInstance = drawApexChartInPreview(reportData.severityCounts, 'doughnut', 'Conteo de Reclamos por Gravedad', `chart-${chartCounter++}`);
                 if (chartInstance && chartInstance.exec && chartInstance.exec.promise) { renderPromises.push(chartInstance.exec.promise); }
             }
-            // 3. Calificación
             if (reportData.ratingCounts) {
                 tablesArea.innerHTML += generateTableHTML(['Rating', 'Conteo'], reportData.ratingCounts, 'Reclamos por Calificación');
                 chartsDisplayArea.innerHTML += `<div class="chart-item" id="chart-${chartCounter}"></div>`;
@@ -238,9 +212,7 @@ export async function renderReportContent() {
     console.log("Gráficos de ApexCharts renderizados completamente en la vista previa.");
 }
 
-/** Maneja la descarga del PDF usando html2pdf.js. */
 export function downloadReportPDF() {
-    // ... (Code for downloadReportPDF) ...
     const element = document.getElementById('report-content-area');
     const filename = `reporte-${document.getElementById('report-name').textContent.replace(/\s/g, '-')}-${new Date().toISOString().slice(0, 10)}.pdf`;
 
@@ -252,12 +224,10 @@ export function downloadReportPDF() {
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
-    // Ocultar el botón de descarga antes de generar el PDF
     const downloadBtn = document.getElementById('download-pdf-btn');
     if (downloadBtn) downloadBtn.style.display = 'none';
 
     html2pdf().set(options).from(element).save().then(() => {
-        // Mostrar el botón de descarga de nuevo al finalizar
         if (downloadBtn) downloadBtn.style.display = 'block';
     });
 }

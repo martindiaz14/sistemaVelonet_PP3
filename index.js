@@ -5,7 +5,7 @@ import employeesRouter from './routes/employees.routes.js';
 import recurrenceRouter from './routes/recurrence.routes.js';
 import severityRouter from './routes/severity.routes.js';
 import typeRouter from './routes/type.routes.js';
-import { startNotificationScheduler } from './controllers/services/gmail.service.js';
+import { startNotificationScheduler } from './services/gmail.service.js';
 import { connectToDatabase } from './db/connection.js';
 import 'dotenv/config'
 
@@ -39,7 +39,7 @@ app.use('/type', typeRouter)
 async function startServer() {
     try {
         await connectToDatabase();
-        console.log("MongoDB está conectado y el scheduler se ha iniciado (si es la primera vez).");
+        console.log("MongoDB está conectado y el scheduler se ha iniciado");
 
     } catch (error) {
         console.error("❌ Error al iniciar la aplicación (DB o Servidor):", error);

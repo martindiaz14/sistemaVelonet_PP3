@@ -14,7 +14,7 @@ export const claimscard = (data) => {
             <p id="name-${data._id}" class="col-span-1">Nombre/y Apellido: ${client.name} </p>
             <p id="adress-${data._id}" class="col-span-1">Direccion: ${client.address}</p>
             <p id="phone-${data._id}" class="col-span-1">Tel: ${client.phone}</p>
-            <p id="dni-${data._id}" class="col-span-1">DNI: ${client.dni}</p>
+            <p id="dni-${data._id}" class="col-span-1">DNI: XXXXXXXX</p>
 
             <p id="date-call-${data._id}" class="col-span-1">Fecha de Llamado: ${data.date}</p>
             <p id="recurrence-${data._id}" class="col-span-1">Recurrencia: ${recurrence.name}</p>

@@ -1,4 +1,4 @@
-import { connectToDatabase } from "../../../db/connection.js";
+import { connectToDatabase } from "../../db/connection.js";
 import qrcode from "qrcode-terminal";
 import makeWASocket, {
     useMultiFileAuthState,
@@ -37,9 +37,9 @@ export async function startWhatsappBot() {
 
     const sock = makeWASocket({
         version,
-        logger: pino({ level: "silent" }),
+        logger: pino({ level: "error" }),
         auth: state,
-        browser: ['Velonet Claim Bot', 'Chrome', '110.0.0.0'] 
+        //browser: ['Velonet Claim Bot', 'Chrome', '110.0.0.0'] 
     });
 
     sock.ev.on("creds.update", saveCreds);
@@ -68,6 +68,19 @@ export async function startWhatsappBot() {
     });
 
     sock.ev.on("messages.upsert", async (msg) => {
-        await messageHandler(sock, msg);
+        const m = msg.messages[0];
+        
+        if (sock.user && m.key.remoteJid) {
+            const selfJid = sock.user.id.split(':')[0]; 
+            
+            if (m.key.remoteJid === selfJid || m.key.remoteJid.startsWith(selfJid)) {
+                console.log("⚠️ Descartado: Mensaje dirigido al propio número del bot.");
+                return; 
+            }
+        }
+        
+        if (msg.type === 'notify') {
+            await messageHandler(sock, msg);
+        }
     });
 }
