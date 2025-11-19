@@ -1,0 +1,21 @@
+[{
+  "_id": {
+    "$oid": "68fd21b90e9a64f2bb4a06bb"
+  },
+  "name": "Tecnico",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fd21be0e9a64f2bb4a06bd"
+  },
+  "name": "Comercial",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fd21c30e9a64f2bb4a06bf"
+  },
+  "name": "Industrial",
+  "__v": 0
+}]

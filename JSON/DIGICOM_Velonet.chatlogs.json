@@ -1,0 +1,242 @@
+[{
+  "_id": {
+    "$oid": "691e53ebc037f53a413a16f5"
+  },
+  "phone": "xxxxxxxxxxxxxx",
+  "status": "ACTIVE",
+  "messages": [
+    {
+      "direction": "OUTBOUND",
+      "content": "Hola Maria Ester! 👋 Veo que esta es tu llamada n° 2.\n¿Podrías describir brevemente tu problema?",
+      "state": "esperandoDescripcion",
+      "timestamp": {
+        "$date": "2025-11-19T23:34:03.338Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "Sigue la falla en la conectar",
+      "state": "esperandoDescripcion",
+      "timestamp": {
+        "$date": "2025-11-19T23:34:27.151Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "Gracias por la descripción. Ahora, indícanos el nivel de *recurrencia* de este problema. Responde solo con el número:\n\n*1* = Baja\n*2* = Media\n*3* = Alta",
+      "state": "esperandoRecurrencia",
+      "timestamp": {
+        "$date": "2025-11-19T23:34:27.183Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "2",
+      "state": "esperandoRecurrencia",
+      "timestamp": {
+        "$date": "2025-11-19T23:34:35.217Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "✅ ¡Reclamo Registrado! Su número es: *8832*.\n\nAntes de terminar, por favor, *califica mi servicio* como bot del 1 (Muy Malo) al 5 (Excelente).",
+      "state": "esperandoCalificacion",
+      "timestamp": {
+        "$date": "2025-11-19T23:34:35.260Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "5",
+      "state": "esperandoCalificacion",
+      "timestamp": {
+        "$date": "2025-11-19T23:34:40.807Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "⭐ ¡Gracias por tu calificación de *5*! Hemos terminado. Su reclamo será atendido a la brevedad.",
+      "state": "FINALIZADO",
+      "timestamp": {
+        "$date": "2025-11-19T23:34:40.870Z"
+      }
+    }
+  ],
+  "lastActivity": {
+    "$date": "2025-11-19T23:34:40.869Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "691e286ac2d1b56a9deba34f"
+  },
+  "phone": "xxxxxxxxxxxxx",
+  "__v": 0,
+  "lastActivity": {
+    "$date": "2025-11-19T20:52:51.845Z"
+  },
+  "messages": [
+    {
+      "direction": "OUTBOUND",
+      "content": "Hola Carlitos Doe🖤! 👋 Veo que esta es tu llamada n° 7.\n¿Podrías describir brevemente tu problema?",
+      "state": "esperandoDescripcion",
+      "timestamp": {
+        "$date": "2025-11-19T20:41:22.555Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "Gracias por la descripción. Ahora, indícanos el nivel de *recurrencia* de este problema. Responde solo con el número:\n\n*1* = Baja\n*2* = Media\n*3* = Alta",
+      "state": "esperandoRecurrencia",
+      "timestamp": {
+        "$date": "2025-11-19T20:41:25.639Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "3",
+      "state": "esperandoRecurrencia",
+      "timestamp": {
+        "$date": "2025-11-19T20:41:36.525Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "Hubo un error al registrar el reclamo. Por favor, inténtalo de nuevo más tarde.",
+      "state": "ERROR_CLAIM_SAVE",
+      "timestamp": {
+        "$date": "2025-11-19T20:41:36.575Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "Hola Carlitos Doe🖤! 👋 Veo que esta es tu llamada n° 8.\n¿Podrías describir brevemente tu problema?",
+      "state": "esperandoDescripcion",
+      "timestamp": {
+        "$date": "2025-11-19T20:41:42.283Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "Tengo mala conexión",
+      "state": "esperandoDescripcion",
+      "timestamp": {
+        "$date": "2025-11-19T20:41:54.435Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "Gracias por la descripción. Ahora, indícanos el nivel de *recurrencia* de este problema. Responde solo con el número:\n\n*1* = Baja\n*2* = Media\n*3* = Alta",
+      "state": "esperandoRecurrencia",
+      "timestamp": {
+        "$date": "2025-11-19T20:41:54.485Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "3",
+      "state": "esperandoRecurrencia",
+      "timestamp": {
+        "$date": "2025-11-19T20:42:00.969Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "✅ ¡Reclamo Registrado! Su número es: *1268*.\n\nAntes de terminar, por favor, *califica mi servicio* como bot del 1 (Muy Malo) al 5 (Excelente).",
+      "state": "esperandoCalificacion",
+      "timestamp": {
+        "$date": "2025-11-19T20:42:01.023Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "1",
+      "state": "esperandoCalificacion",
+      "timestamp": {
+        "$date": "2025-11-19T20:42:05.945Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "⭐ ¡Gracias por tu calificación de *1*! Hemos terminado. Su reclamo será atendido a la brevedad.",
+      "state": "FINALIZADO",
+      "timestamp": {
+        "$date": "2025-11-19T20:42:06.109Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "⚠️ Advertencia: Se detectó lenguaje ofensivo. Tu número ha sido bloqueado por 7 días. No podremos procesar tu reclamo.",
+      "state": "BLOCKED_NEW",
+      "timestamp": {
+        "$date": "2025-11-19T20:46:23.638Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "🔒 Tu número ha sido bloqueado por usar lenguaje inapropiado. Te quedan 7 días de suspensión.",
+      "state": "BLOCKED_ACTIVE",
+      "timestamp": {
+        "$date": "2025-11-19T20:46:39.296Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "Hola Carlitos Doe🖤! 👋 Veo que esta es tu llamada n° 9.\n¿Podrías describir brevemente tu problema?",
+      "state": "esperandoDescripcion",
+      "timestamp": {
+        "$date": "2025-11-19T20:51:58.269Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "No anda internet desde ayer",
+      "state": "esperandoDescripcion",
+      "timestamp": {
+        "$date": "2025-11-19T20:52:14.347Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "Gracias por la descripción. Ahora, indícanos el nivel de *recurrencia* de este problema. Responde solo con el número:\n\n*1* = Baja\n*2* = Media\n*3* = Alta",
+      "state": "esperandoRecurrencia",
+      "timestamp": {
+        "$date": "2025-11-19T20:52:14.406Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "3",
+      "state": "esperandoRecurrencia",
+      "timestamp": {
+        "$date": "2025-11-19T20:52:40.969Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "✅ ¡Reclamo Registrado! Su número es: *3591*.\n\nAntes de terminar, por favor, *califica mi servicio* como bot del 1 (Muy Malo) al 5 (Excelente).",
+      "state": "esperandoCalificacion",
+      "timestamp": {
+        "$date": "2025-11-19T20:52:41.019Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "2",
+      "state": "esperandoCalificacion",
+      "timestamp": {
+        "$date": "2025-11-19T20:52:51.799Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "⭐ ¡Gracias por tu calificación de *2*! Hemos terminado. Su reclamo será atendido a la brevedad.",
+      "state": "FINALIZADO",
+      "timestamp": {
+        "$date": "2025-11-19T20:52:51.847Z"
+      }
+    }
+  ],
+  "status": "ACTIVE"
+}]

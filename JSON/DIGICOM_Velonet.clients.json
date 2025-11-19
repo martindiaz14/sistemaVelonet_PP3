@@ -1,0 +1,122 @@
+[{
+  "_id": {
+    "$oid": "69064ff8d51fcc0620b4978d"
+  },
+  "img": "",
+  "name": "Roberto Fernández",
+  "dni": 87654321,
+  "phone": 34600333444,
+  "address": "Avenida Siempreviva 742, Barcelona",
+  "count_calls": 3,
+  "last_rating": 2,
+  "IdType": {
+    "$oid": "68fd21be0e9a64f2bb4a06bd"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69065010d51fcc0620b4978f"
+  },
+  "name": "Ana García",
+  "dni": 12345678,
+  "phone": 34600111222,
+  "address": "Calle Falsa 123, Madrid",
+  "count_calls": 15,
+  "last_rating": 5,
+  "IdType": {
+    "$oid": "68fd21b90e9a64f2bb4a06bb"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6906501ed51fcc0620b49791"
+  },
+  "name": "María López",
+  "dni": 11223344,
+  "phone": 34600555666,
+  "address": "Plaza Mayor 5, Valencia",
+  "count_calls": 45,
+  "last_rating": 4,
+  "IdType": {
+    "$oid": "68fd21c30e9a64f2bb4a06bf"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6906502ed51fcc0620b49793"
+  },
+  "name": "Javier Pérez",
+  "dni": 55667788,
+  "phone": 34600777888,
+  "address": "Rúa da Rosa 20, Sevilla",
+  "count_calls": 1,
+  "last_rating": 3,
+  "IdType": {
+    "$oid": "68fd21b90e9a64f2bb4a06bb"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69065041d51fcc0620b49795"
+  },
+  "name": "Laura Martínez",
+  "dni": 99001122,
+  "phone": 34600999000,
+  "address": "Paseo de Gracia 80, Barcelona",
+  "count_calls": 22,
+  "last_rating": 5,
+  "IdType": {
+    "$oid": "68fd21be0e9a64f2bb4a06bd"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "691cf5949dac5db2abbbe33d"
+  },
+  "img": null,
+  "name": ".....",
+  "dni": "$2a$08$jDoHxmovzoKz0E7NR2hev.8t4yClewknJk7zCLxjKv6m0iPNttEMe",
+  "phone": "xxxxxxxxxxxxx",
+  "address": "Calle 12 N°4555",
+  "count_calls": 1,
+  "IdType": {
+    "$oid": "68fd21be0e9a64f2bb4a06bd"
+  },
+  "__v": 0,
+  "last_rating": 5
+},
+{
+  "_id": {
+    "$oid": "691cf6025eadfbc6a4ba999e"
+  },
+  "name": "xxxxxxxxxxxxx",
+  "dni": "$2a$08$iXeVueYq3vdTNjBQmdw58.nkLz3FNRMfTWWVI0IQ377yhCTJLqak6",
+  "phone": "xxxxxxxxxxxxx",
+  "address": "Calle 59 N° 512",
+  "count_calls": 2,
+  "IdType": {
+    "$oid": "68fd21b90e9a64f2bb4a06bb"
+  },
+  "__v": 0,
+  "last_rating": 5
+},
+{
+  "_id": {
+    "$oid": "691d0b7e39a4ecb8e256fdba"
+  },
+  "name": "xxxxxxxxxxxxx",
+  "dni": "$2a$08$YpSdJetx9KKQ9pxXD9.QZeaRXTDc3RWRhsFYA2f8RbriIA8JIwKJi",
+  "phone": "xxxxxxxxxxxxx",
+  "address": "Calle 19 n°221",
+  "count_calls": 9,
+  "IdType": {
+    "$oid": "68fd21be0e9a64f2bb4a06bd"
+  },
+  "__v": 0,
+  "last_rating": 2
+}]
