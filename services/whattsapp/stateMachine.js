@@ -177,12 +177,10 @@ export async function messageHandler(sock, msg) {
             console.log(`✅ LOG 7.2: Iniciando flujo de registro para ${phoneKey}.`);
             let responseText;
             if (!cliente) {
-                let ppUrl = null;
-                try { ppUrl = await sock.profilePictureUrl(remoteJid); } catch (e) { }
 
                 estadosConversacion[conversationKey] = {
                     paso: "esperandoDni",
-                    datosCliente: { name: nombre, phone: phoneKey, img: ppUrl, count_calls: 0 },
+                    datosCliente: { name: nombre, phone: phoneKey, count_calls: 0 },
                     datosReclamo: {},
                     lastActivity: new Date()
                 };
