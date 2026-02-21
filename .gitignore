@@ -5,7 +5,7 @@ node_modules/
 package-lock.json
 
 # Archivos de entorno y credenciales
-.env
+.envg
 
 # Baileys Auth Info (Para el bot de WhatsApp)
 /auth_info

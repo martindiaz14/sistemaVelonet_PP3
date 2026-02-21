@@ -12,7 +12,7 @@ try {
     const result = await createClaims({IdClient,IdEmployee, date, claimNumber,desc,state,Idrecurrence,Idseverety,dateResolution,descTec,resolutionTime})
     res.status(200).json(result)
 } catch (error) {
-    console.error("Error en la ruta de búsqueda de clientes:", error);
+    console.error("Error al crear un nuevo reclamo:", error);
     res.status(400).json({status:false})
 }
 
