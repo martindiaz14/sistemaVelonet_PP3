@@ -13,6 +13,38 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+export async function sendSingleClaimNotification(claim) {
+    try {
+        const populatedClaim = await Claims.findById(claim._id)
+            .populate('IdClient')
+            .populate('IdEmployee');
+
+        const { IdEmployee, IdClient, claimNumber, desc } = populatedClaim;
+
+        const mailOptions = {
+            from: process.env.EMAIL_USER || 'tu_email@gmail.com',
+            to: IdEmployee.mail,
+            subject: `🆕 Nuevo Reclamo Asignado: N° ${claimNumber}`,
+            html: `
+                <p>Hola ${IdEmployee.name},</p>
+                <p>Se te ha asignado un nuevo reclamo que requiere tu atención:</p>
+                <div style="border: 1px solid #0284c7; padding: 15px; border-radius: 5px; background-color: #f0f9ff;">
+                    <strong>Cliente:</strong> ${IdClient.name}<br>
+                    <strong>Número de Reclamo:</strong> ${claimNumber}<br>
+                    <strong>Calle y Numero:</strong> ${IdClient.address}<br>
+                    <strong>Descripción:</strong> ${desc}<br>
+                </div>
+                <p>Por favor, ingresa al sistema para gestionarlo.</p>
+            `
+        };
+
+        await transporter.sendMail(mailOptions);
+        console.log(`[Instant Mail] Notificación enviada a ${IdEmployee.mail} por el reclamo ${claimNumber}`);
+    } catch (error) {
+        console.error("❌ Error al enviar notificación instantánea:", error);
+    }
+}
+
 async function sendPendingClaimsNotifications() {
     console.log(`[Scheduler] Ejecutando verificación de reclamos pendientes a las ${new Date().toISOString()}`);
 
@@ -45,6 +77,7 @@ async function sendPendingClaimsNotifications() {
             const claimsDetailsHtml = claimsList.map(claim => `
                 <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 15px; border-radius: 5px;">
                     <strong>Asunto:</strong> El cliente (${claim.IdClient.name}) está esperando que atiendas su reclamo con el número (${claim.claimNumber}).<br>
+                    <strong>Calle y Numero:</strong> ${claim.IdClient.address}<br>
                     <strong>Descripción:</strong> ${claim.desc}<br>
                     <small>Asignado desde: ${new Date(claim.date).toLocaleDateString()}</small>
                 </div>

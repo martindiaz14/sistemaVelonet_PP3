@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { startNotificationScheduler } from "../services/gmail.service.js";
-import { startWhatsappBot } from "../services/whattsapp/botStarter.js";
+import { startWhatsappBot } from "../services/whatsapp/botStarter.js";
 import 'dotenv/config'
 const MONGODB_URI = process.env.MONGODB_URI
 

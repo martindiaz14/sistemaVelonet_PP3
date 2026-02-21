@@ -7,13 +7,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --watch index.js",
+    "dev2": "node --watch services/whatsapp/botStarter.js",
     "build": "vite build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@whiskeysockets/baileys": "^7.0.0-rc.6",
+    "@whiskeysockets/baileys": "^7.0.0-rc.9",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",

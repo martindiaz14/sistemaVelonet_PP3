@@ -13,15 +13,15 @@ return `
         <div
             class="flex items-center space-x-4 sm:flex-row sm:flex flex-space-x-4 items-center w-full sm:w-auto space-y-0 sm:space-y-0 ">
             
-            <a href="../home/index.html" class="rounded-2xl p-2 px-4 hover:bg-sky-700 transition-all" id="btnHome">
+            <a href="/pages/index.html" class="rounded-2xl p-2 px-4 hover:bg-sky-700 transition-all" id="btnHome">
                 Home
             </a>
             
-            <a href="../history/index.html" class="rounded-2xl p-2 px-4 hover:bg-sky-700 transition-all" id="btnHistory">
+            <a href="/pages/history/index.html" class="rounded-2xl p-2 px-4 hover:bg-sky-700 transition-all" id="btnHistory">
                 History
             </a>
             
-            <a href="../clients/index.html" class="rounded-2xl p-2 px-4 hover:bg-sky-700 transition-all" id="btnClients">
+            <a href="/pages/clients/index.html" class="rounded-2xl p-2 px-4 hover:bg-sky-700 transition-all" id="btnClients">
                 Clients
             </a>
             

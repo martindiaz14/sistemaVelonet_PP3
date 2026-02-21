@@ -8,9 +8,14 @@ import typeRouter from './routes/type.routes.js';
 import { startNotificationScheduler } from './services/gmail.service.js';
 import { connectToDatabase } from './db/connection.js';
 import 'dotenv/config'
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const app = express()
 const port = process.env.PORT
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.use(express.json());
 
@@ -28,7 +33,9 @@ process.on('unhandledRejection', (reason, promise) => {
 
 app.use(express.static('./public/'))
 
-
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'pages', 'index.html'));
+});
 app.use('/claims', claimsRouter)
 app.use('/clients', clientsRouter)
 app.use('/employees', employeesRouter)

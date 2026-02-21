@@ -39,7 +39,7 @@ export const searchClients = async (searchTerm) => {
                 path: 'IdType',
                 select: 'name'
             })
-            .select('name address phone dni IdType count_calls img')
+            .select('name address phone dni IdType count_calls last_rating')
             .exec();
             
         if (isNumeric) {
@@ -48,7 +48,7 @@ export const searchClients = async (searchTerm) => {
             
 
             const allClients = await clients.find({}) 
-                                           .select('name dni IdType count_calls img address phone');
+                                           .select('name dni IdType count_calls address phone last_rating');
             
             for (const client of allClients) {
 

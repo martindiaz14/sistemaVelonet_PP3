@@ -6,6 +6,7 @@ import { OFFENSIVE_KEYWORDS, BLOCK_DURATION_MS } from "./botConfig.js";
 import mongoose from "mongoose";
 import LogModel from "../../db/schemas/controllers/conversationLog.schema.js";
 import BlockedUser from "../../db/schemas/controllers/BlockedUser.schema.js";
+import {sendSingleClaimNotification} from "../gmail.service.js";
 
 
 const TIME_THRESHOLD_MS = 10000;
@@ -19,25 +20,25 @@ function detectOffensiveLanguage(text) {
 }
 
 async function logConversation(phone, direction, content, state) {
-    
+
     try {
         const messageEntry = {
             direction: direction,
-            content: content.substring(0, 500), 
+            content: content.substring(0, 500),
             state: state,
         };
 
-        const existingSession = await LogModel.findOne({ phone: phone }).select('messages'); 
-        
+        const existingSession = await LogModel.findOne({ phone: phone }).select('messages');
+
         if (existingSession) {
             let updateOperation = {};
-            
+
             if (existingSession.messages.length >= MAX_MESSAGES_PER_SESSION) {
                 updateOperation = {
-                    $set: { 
-                        messages: [messageEntry], 
-                        lastActivity: new Date(), 
-                        status: 'ROTATED' 
+                    $set: {
+                        messages: [messageEntry],
+                        lastActivity: new Date(),
+                        status: 'ROTATED'
                     }
                 };
                 console.log(`⚠️ Log Rotado para ${phone}. Se reinició el historial.`);
@@ -52,7 +53,7 @@ async function logConversation(phone, direction, content, state) {
                 { phone: phone },
                 updateOperation
             );
-            
+
             if (updateOperation.hasOwnProperty('$push')) {
                 console.log(`✅ Log actualizado para ${phone}. Mensajes totales: ${existingSession.messages.length + 1}`);
             }
@@ -60,7 +61,7 @@ async function logConversation(phone, direction, content, state) {
         } else {
             await LogModel.create({
                 phone: phone,
-                messages: [messageEntry], 
+                messages: [messageEntry],
                 lastActivity: new Date(),
                 status: 'ACTIVE'
             });
@@ -79,27 +80,33 @@ export async function messageHandler(sock, msg) {
         const m = msg.messages[0];
         remoteJid = m.key.remoteJid;
 
+        if (!m.message) {
+            return;
+        }
+        if (remoteJid.endsWith('@g.us') || remoteJid === 'status@broadcast') {
+            return;
+        }
         if (m.key.fromMe) {
             return;
         }
 
-        if (remoteJid.endsWith("@g.us")) {
-            return;
-        }
-        if (remoteJid === 'status@broadcast') {
+        if (m.key.participant) {
             return;
         }
 
-        if (!m.message) {
-            return;
-        }
-        if (m.key.participant) {
+        const messageType = Object.keys(m.message)[0];
+
+        // Lista de tipos de texto permitidos
+        const allowedTypes = ['conversation', 'extendedTextMessage'];
+
+        if (!allowedTypes.includes(messageType)) {
+            console.log(`🚫 Mensaje ignorado: Tipo ${messageType} no soportado por el bot.`);
             return;
         }
 
         const conversationKey = remoteJid;
         const fromRaw = remoteJid.split("@")[0];
-        phoneKey = fromRaw.replace(/\D/g, ''); 
+        phoneKey = fromRaw.replace(/\D/g, '');
 
 
         if (phoneKey.length < 5) {
@@ -177,6 +184,7 @@ export async function messageHandler(sock, msg) {
             console.log(`✅ LOG 7.2: Iniciando flujo de registro para ${phoneKey}.`);
             let responseText;
             if (!cliente) {
+
 
                 estadosConversacion[conversationKey] = {
                     paso: "esperandoDni",
@@ -349,6 +357,8 @@ export async function messageHandler(sock, msg) {
                 });
 
                 await nuevoReclamo.save();
+
+                await sendSingleClaimNotification(nuevoReclamo);
 
                 estadosConversacion[conversationKey].paso = "esperandoCalificacion";
 

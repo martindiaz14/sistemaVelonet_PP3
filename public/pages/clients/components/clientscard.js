@@ -14,7 +14,6 @@ export const clientscard = (data) => {
             <div class="space-y-2 w-full mt-4">
 
                 <p id="name-${data._id}">Nombre/y Apellido: <span class="font-bold">${data.name}</span></p>
-                <p id="dni-${data._id}">DNI: <span class="font-bold">XXXXXXXXX</span></p>
                 <p id="adress-${data._id}">Direccion: <span class="font-bold">${data.address}</span></p>
                 <p id="phone-${data._id}">Tel: <span class="font-bold">${data.phone}</span></p>
                 <hr class="border-gray-300">
@@ -35,25 +34,6 @@ document.addEventListener('click', function (event) {
 
     const targetElement = event.target;
 
-    // Lógica para ABRIR el pop-up de Reporte (se mantiene)
-    if (targetElement && targetElement.id === 'open-popup-btn') {
-        document.querySelectorAll('[id^="popup-div-"]').forEach(popup => {
-            popup.classList.add('hidden');
-        });
-
-        // Se busca la clase corregida 'client-card'
-        const cardElement = targetElement.closest('.client-card');
-        if (!cardElement) return;
-
-        const clientId = cardElement.id;
-        const popupDiv = cardElement.querySelector(`#popup-div-${clientId}`);
-
-        if (popupDiv) {
-            popupDiv.classList.toggle('hidden');
-        } else {
-            console.error(`No se encontró el popup con ID: #popup-div-${clientId}`);
-        }
-    }
 
     // NUEVA LÓGICA: Manejar el clic en el botón "Historial" (hist-button-trigger)
     if (targetElement && targetElement.classList.contains('hist-button-trigger')) {
@@ -67,7 +47,7 @@ document.addEventListener('click', function (event) {
             localStorage.setItem('clientSearchTerm', clientName);
 
             // Redirigir a la página principal de reclamos (que está configurada en la ruta '/')
-            window.location.href = '../home/';
+            window.location.href = '/pages/';
         }
     }
 

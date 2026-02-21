@@ -1,6 +1,6 @@
-import { navbar } from "../../general-components/nav.js";
-import { addclaimsByState, closeClaim, searchClaims, filterClaims } from "../../APIs/claims.api.js";
-import { claimscard } from "./components/claimscard.js"
+import { navbar } from "../general-components/nav.js";
+import { addclaimsByState, closeClaim, searchClaims, filterClaims } from "../APIs/claims.api.js";
+import { claimscard } from "../general-components/claimscard.js"
 
 const CURRENT_CLAIM_STATE = 1;
 let searchTimeout;
@@ -12,7 +12,28 @@ const renderNavbar = () => {
 
 document.addEventListener('DOMContentLoaded', renderNavbar)
 
+document.addEventListener('change', (event) => {
+    if (event.target && event.target.id === 'time-select') {
+        const timeSelect = event.target;
+        const popupDivDate = document.getElementById('popup-div-date');
 
+        const dateFrom = document.getElementById('date-from');
+        const dateTo = document.getElementById('date-to');
+
+        console.log("Evento capturado. Valor:", timeSelect.value);
+
+        if (timeSelect.value === 'P') {
+            popupDivDate.classList.remove('hidden');
+            popupDivDate.style.display = 'block'; 
+        } else {
+            popupDivDate.classList.add('hidden');
+            popupDivDate.style.display = 'none';
+
+            if (dateFrom) dateFrom.value = '';
+            if (dateTo) dateTo.value = '';
+        }
+    }
+});
 
 document.addEventListener('click', function (event) {
     
@@ -32,7 +53,7 @@ document.addEventListener('click', function (event) {
 
     const isClickInsideReportArea = 
         targetElement.closest('#popup-div') || 
-        targetElement.closest('#filter-button');
+        targetElement.closest('#filter-button') ;
 
     if (isReportPopupVisible && !isClickInsideReportArea) {
         reportPopup.classList.add('hidden');
@@ -67,7 +88,7 @@ document.addEventListener('click', function (event) {
 const displayClaims = (claims) => {
     let claimscon = ``;
     if (!claims || claims.length === 0) {
-        claimscon = `<li class="text-white text-center p-4 bg-sky-700 rounded-lg shadow-lg m-4">No se encontraron reclamos con el estado ${CURRENT_CLAIM_STATE} que coincidan con la búsqueda.</li>`;
+        claimscon = `<li class="text-white text-center p-4 bg-sky-700 rounded-lg shadow-lg m-4">No se encontraron que coincidan con la búsqueda.</li>`;
     } else {
         claims.forEach(e => {
             claimscon += claimscard(e)
