@@ -231,6 +231,7 @@ const dateToInput = document.getElementById("date-to");
 const typeSelect = document.getElementById("type-select");
 const severitySelect = document.getElementById("severity-select");
 const recurrenceSelect = document.getElementById("recurrence-select");
+const serviceSelect = document.getElementById("service-select");
 
 const getFilterValues = () => {
     return {
@@ -241,6 +242,7 @@ const getFilterValues = () => {
         type: typeSelect ? typeSelect.value : null,
         severity: severitySelect ? severitySelect.value : null,
         recurrence: recurrenceSelect ? recurrenceSelect.value : null,
+        service: serviceSelect ? serviceSelect.value : null,
     };
 };
 

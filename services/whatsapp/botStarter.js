@@ -8,7 +8,7 @@ import makeWASocket, {
 import { Boom } from "@hapi/boom";
 import pino from "pino";
 
-import { loadClaimTypeOptions, loadRecurrenceOptions } from "./dbLoaders.js";
+import { loadClaimTypeOptions, loadRecurrenceOptions, loadServicesOptions} from "./dbLoaders.js";
 import { messageHandler } from "./stateMachine.js";
 
 
@@ -26,6 +26,7 @@ export async function startWhatsappBot() {
         await connectToDatabase();
         await loadClaimTypeOptions();
         await loadRecurrenceOptions();
+        await loadServicesOptions();
     } catch (e) {
         console.error("🚨 Falló la conexión inicial.", e);
         IS_BOT_RUNNING = false;

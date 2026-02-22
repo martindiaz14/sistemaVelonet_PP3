@@ -18,8 +18,8 @@ export const connectToDatabase = async () => {
     cached.conn = await cached.promise
 
     if (!cached.conn.isSchedulerStarted) {
-        startNotificationScheduler();
-        startWhatsappBot();
+        //startNotificationScheduler();
+        //startWhatsappBot();
         cached.conn.isSchedulerStarted = true;
         console.log("✅ Sistema de notificación automática iniciado.");
     }

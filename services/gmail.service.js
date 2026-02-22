@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer';
 import cron from 'node-cron';
 import Claims from '../db/schemas/claims.schema.js';
+import Services from '../db/schemas/service.schema.js';
 import Employee from '../db/schemas/employees.schema.js';
 import Client from '../db/schemas/clients.schema.js'; 
 
@@ -17,9 +18,10 @@ export async function sendSingleClaimNotification(claim) {
     try {
         const populatedClaim = await Claims.findById(claim._id)
             .populate('IdClient')
-            .populate('IdEmployee');
+            .populate('IdEmployee')
+            .populate('IdService');
 
-        const { IdEmployee, IdClient, claimNumber, desc } = populatedClaim;
+        const { IdEmployee, IdClient, claimNumber,IdService, desc } = populatedClaim;
 
         const mailOptions = {
             from: process.env.EMAIL_USER || 'tu_email@gmail.com',
@@ -32,6 +34,7 @@ export async function sendSingleClaimNotification(claim) {
                     <strong>Cliente:</strong> ${IdClient.name}<br>
                     <strong>Número de Reclamo:</strong> ${claimNumber}<br>
                     <strong>Calle y Numero:</strong> ${IdClient.address}<br>
+                    <strong>Servicio:</strong> ${IdService.name}<br>
                     <strong>Descripción:</strong> ${desc}<br>
                 </div>
                 <p>Por favor, ingresa al sistema para gestionarlo.</p>
@@ -52,7 +55,8 @@ async function sendPendingClaimsNotifications() {
 
         const pendingClaims = await Claims.find({ state: 1 })
             .populate('IdClient')  
-            .populate('IdEmployee');
+            .populate('IdEmployee')
+            .populate('IdService');
 
         if (pendingClaims.length === 0) {
             console.log("[Scheduler] No hay reclamos pendientes. Saliendo.");
@@ -78,6 +82,7 @@ async function sendPendingClaimsNotifications() {
                 <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 15px; border-radius: 5px;">
                     <strong>Asunto:</strong> El cliente (${claim.IdClient.name}) está esperando que atiendas su reclamo con el número (${claim.claimNumber}).<br>
                     <strong>Calle y Numero:</strong> ${claim.IdClient.address}<br>
+                    <strong>Servicio:</strong> ${claim.IdService.name}<br>
                     <strong>Descripción:</strong> ${claim.desc}<br>
                     <small>Asignado desde: ${new Date(claim.date).toLocaleDateString()}</small>
                 </div>

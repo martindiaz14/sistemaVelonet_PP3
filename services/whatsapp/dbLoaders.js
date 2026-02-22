@@ -2,10 +2,12 @@ import clients from "../../db/schemas/clients.schema.js";
 import types from "../../db/schemas/type.schema.js"; 
 import Recurrence from "../../db/schemas/recurrence.schema.js"; 
 import Employee from "../../db/schemas/employees.schema.js"; 
+import Services from "../../db/schemas/service.schema.js"; 
 import mongoose from "mongoose";
 
 export let CLAIM_TYPE_OPTIONS = {};
 export let RECURRENCE_OPTIONS = {};
+export let SERVICES_OPTIONS = {};
 
 export async function loadClaimTypeOptions() {
     try {
@@ -31,6 +33,20 @@ export async function loadRecurrenceOptions() {
         console.log("✅ Opciones de Recurrencia cargadas.");
     } catch (error) {
         console.error("❌ Error al cargar las recurrencias:", error);
+        throw new Error("Fallo la carga de opciones.");
+    }
+}
+
+export async function loadServicesOptions() {
+    try {
+        const service = await Services.find({});
+        SERVICES_OPTIONS = service.reduce((acc, rec, index) => {
+            acc[(index + 1).toString()] = { label: rec.name, id: rec._id.toString() };
+            return acc;
+        }, {});
+        console.log("✅ Opciones de Servicios cargadas.");
+    } catch (error) {
+        console.error("❌ Error al cargar las Servicios:", error);
         throw new Error("Fallo la carga de opciones.");
     }
 }

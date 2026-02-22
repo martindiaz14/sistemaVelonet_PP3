@@ -26,7 +26,7 @@ export const addclaimsByState = async (state) => {
  * @param {object} updateData 
  * @returns {object|null} 
  */
-export const closeClaim = async (id, updateData) => { 
+export const closeClaim = async (id, updateData) => {
     try {
 
         const res = await fetch(`${API}/claims/close/${id}`, {
@@ -35,7 +35,7 @@ export const closeClaim = async (id, updateData) => {
                 'Content-Type': 'application/json',
             },
 
-            body: JSON.stringify(updateData) 
+            body: JSON.stringify(updateData)
         });
 
         if (!res.ok) {
@@ -59,7 +59,7 @@ export const closeClaim = async (id, updateData) => {
 export const searchClaims = async (searchTerm, claimState) => {
     try {
         const url = `${API}/claims/search?q=${encodeURIComponent(searchTerm)}&state=${claimState}`;
-        
+
         const res = await fetch(url, {
             method: 'GET',
             headers: {
@@ -86,16 +86,18 @@ export const filterClaims = async (filters) => {
         const params = new URLSearchParams();
 
         params.append('state', filters.state);
+        const isValid = (val) => val && val !== '...' && val !== '' && val !== 'all';
 
-        if (filters.time && filters.time !== '...') params.append('time', filters.time);
-        if (filters.type && filters.type !== '...') params.append('type', filters.type);
-        if (filters.severity && filters.severity !== '...') params.append('severity', filters.severity);
-        if (filters.recurrence && filters.recurrence !== '...') params.append('recurrence', filters.recurrence);
+        if (isValid(filters.time)) params.append('time', filters.time);
+        if (isValid(filters.type)) params.append('type', filters.type);
+        if (isValid(filters.severity)) params.append('severity', filters.severity);
+        if (isValid(filters.recurrence)) params.append('recurrence', filters.recurrence);
+        if (isValid(filters.service)) params.append('service', filters.service); // <--- Corregido
+
         if (filters.dateFrom) params.append('dateFrom', filters.dateFrom);
         if (filters.dateTo) params.append('dateTo', filters.dateTo);
 
         const url = `${API}/claims/filter?${params.toString()}`;
-
         const res = await fetch(url, {
             method: 'GET',
             headers: {
@@ -122,14 +124,14 @@ export const filterClaims = async (filters) => {
  */
 export const generatePredefinedReport = async (reportOptions) => {
     try {
-        const url = `${API}/claims/reports`; 
-        
+        const url = `${API}/claims/reports`;
+
         const res = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(reportOptions) 
+            body: JSON.stringify(reportOptions)
         });
 
         if (!res.ok) {
@@ -138,10 +140,10 @@ export const generatePredefinedReport = async (reportOptions) => {
         }
 
         const result = await res.json();
-        return result.data; 
+        return result.data;
 
     } catch (error) {
         console.error("Fallo al solicitar la generación del reporte:", error);
-        throw error; 
+        throw error;
     }
 }

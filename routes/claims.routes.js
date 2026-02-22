@@ -49,6 +49,7 @@ router.get('/filter', async (req, res) => {
             recurrence: req.query.recurrence,
             dateFrom: req.query.dateFrom,
             dateTo: req.query.dateTo,
+            service: req.query.service,
         };
 
         const result = await filterClaims(filters);

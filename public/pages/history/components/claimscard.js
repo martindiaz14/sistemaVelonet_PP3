@@ -5,6 +5,7 @@ export const claimscard = (data) => {
         const severity = data.Idseverity || {};
         const typeName = client.IdType?.name || 'N/A';
         const employee = data.IdEmployee ||{};
+        const service = data.IdService ||{};
 
 
         return `
@@ -14,7 +15,7 @@ export const claimscard = (data) => {
 
             <p id="name-${data._id}" class="col-span-1">Nombre/y Apellido: <span class="font-bold">${client.name}</span></p>
             <p id="adress-${data._id}" class="col-span-1">Direccion: <span class="font-bold">${client.address}</span></p>
-            <p id="phone-${data._id}" class="col-span-1">Tel:  <span class="font-bold">${client.phone}</span></p>
+            <p id="service-${data._id}" class="col-span-1">Servicio:  <span class="font-bold">${service.name}</span></p>
             <p id="employee-${data._id}" class="col-span-1">Tecnico Asignado: <span class="font-bold">${employee.name}</span></p>
             
 

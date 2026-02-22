@@ -14,6 +14,7 @@ const claimsSchema = new Schema({
     descTec:{type:String},
     Idseverity:{type:ObjectId, ref:"severity"},
     Idrecurrence:{type:ObjectId, required:true, ref:"recurrence"},
+    IdService:{type:ObjectId, required:true, ref:"service"},
 
 })
 
