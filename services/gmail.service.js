@@ -9,8 +9,7 @@ import Client from '../db/schemas/clients.schema.js';
 const transporter = nodemailer.createTransport({
     service: 'gmail', 
     auth: {
-        user: process.env.EMAIL_USER || 'martindiazb14@gmail.com', 
-        pass: process.env.EMAIL_PASS || 'kzjs saqi docv cuue' 
+
     }
 });
 
