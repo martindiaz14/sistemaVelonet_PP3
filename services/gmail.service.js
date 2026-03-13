@@ -146,10 +146,6 @@ export function startNotificationScheduler() {
         timezone: "America/Argentina/Buenos_Aires"
     });
 
-<<<<<<< HEAD
     console.log("✅ Sistema de notificación automática iniciado: Se enviará cada 24 horas (medianoche).");
 }
-=======
-    console.log("✅ Sistema de notificación automática iniciado: Se enviará cada 24 horas a las 12:30 PM.");
-}
->>>>>>> 06ba39a (cambios menores)
+
