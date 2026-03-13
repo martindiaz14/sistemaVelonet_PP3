@@ -34,14 +34,12 @@ export async function startWhatsappBot() {
     }
 
     const connect = async () => {
-        // ✅ Asegúrate de que la ruta "/auth_info" sea válida en Windows. 
-        // Es mejor usar una ruta relativa como "./auth_info"
         const { state, saveCreds } = await useMultiFileAuthState("./auth_info");
         const { version } = await fetchLatestBaileysVersion();
 
         const sock = makeWASocket({
             version,
-            logger: pino({ level: "error" }),
+            logger: pino({ level: "silent" }),
             auth: state, 
             printQRInTerminal: false,
             connectTimeoutMs: 60000,
@@ -73,7 +71,6 @@ export async function startWhatsappBot() {
         });
 
         sock.ev.on("messages.upsert", async (msg) => {
-            // Tu lógica de filtrado de JID...
             if (msg.type === 'notify') {
                 await messageHandler(sock, msg);
             }

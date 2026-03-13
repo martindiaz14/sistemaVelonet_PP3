@@ -51,16 +51,3 @@ export async function loadServicesOptions() {
     }
 }
 
-export async function selectRandomEmployeeId() {
-    try {
-        const allEmployees = await Employee.find({});
-        if (allEmployees.length === 0) return null;
-        const randomIndex = Math.floor(Math.random() * allEmployees.length);
-        const randomEmployee = allEmployees[randomIndex];
-        console.log(`✅ Empleado aleatorio seleccionado: ${randomEmployee.name}`);
-        return randomEmployee._id;
-    } catch (error) {
-        console.error("❌ Error al seleccionar un empleado aleatorio:", error);
-        return null;
-    }
-}

@@ -4,64 +4,6 @@ import Recurrence from "../db/schemas/recurrence.schema.js";
 import Type from "../db/schemas/type.schema.js";
 import Severity from "../db/schemas/severity.schema.js";
 
-const { ObjectId } = mongoose.Types;
-
-let RECURRENCE_OPTIONS = {};
-let SEVERITY_OPTIONS = {}
-let CLAIM_TYPE_OPTIONS = {}
-
-export async function loadClaimTypeOptions() {
-    try {
-        const claimstypes = await Type.find({});
-        const options = {};
-        claimstypes.forEach((type) => {
-            options[type.name] = { label: type.name, id: type._id.toString() };
-        });
-        CLAIM_TYPE_OPTIONS = options;
-    } catch (error) {
-        console.error("❌ Error al cargar los tipos de reclamo desde la DB:", error);
-        throw new Error("No se pudieron cargar las opciones de reclamo.");
-    }
-}
-
-export async function loadRecurrenceOptions() {
-    try {
-        const recurrences = await Recurrence.find({});
-        const options = {};
-        recurrences.forEach((rec) => {
-            options[rec.name] = { label: rec.name, id: rec._id.toString() };
-        });
-        RECURRENCE_OPTIONS = options;
-    } catch (error) {
-        console.error("❌ Error al cargar las recurrencias desde la DB:", error);
-        throw new Error("No se pudieron cargar las opciones de recurrencia.");
-    }
-}
-
-export async function loadSeveritiesOptions() {
-    try {
-        const severities = await Severity.find({});
-        const options = {};
-        severities.forEach((sev) => {
-            options[sev.name] = { label: sev.name, id: sev._id.toString() };
-        });
-        SEVERITY_OPTIONS = options;
-    } catch (error) {
-        console.error("❌ Error al cargar las gravedades desde la DB:", error);
-        throw new Error("No se pudieron cargar las opciones de gravedad.");
-    }
-}
-
-
-const buildReverseMap = (optionsMap) => {
-    const reverseMap = {};
-    for (const key in optionsMap) {
-        if (optionsMap.hasOwnProperty(key)) {
-            reverseMap[optionsMap[key].id] = optionsMap[key].label;
-        }
-    }
-    return reverseMap;
-};
 
 
 const calculateDateRange = (period, dateFrom, dateTo) => {
@@ -118,8 +60,6 @@ const getBasePipeline = (start, end) => {
 
 
 export const generatePredefinedReport = async (req, res) => {
-    let reportKey = 'UNKNOWN';
-    let period, dateFrom, dateTo;
     try {
         const { reportKey, period, dateFrom, dateTo } = req.body;
 
@@ -127,30 +67,56 @@ export const generatePredefinedReport = async (req, res) => {
         const pipelineBase = getBasePipeline(start, end);
         let reportData = {};
 
-
-        if (reportKey === 'DEMAND_TREND' || reportKey === 'OPERATIONAL_SUMMARY') {
+        if (reportKey === 'TENDENCIA_Y_DEMANDA') {
             reportData.trendData = await Claims.aggregate([
                 ...pipelineBase,
                 {
-                    $group: {
-                        _id: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
-                        created: { $sum: 1 },
-
-                        resolved: { $sum: { $cond: [{ $eq: ["$state", 2] }, 1, 0] } }
+                    $project: {
+                        events: [
+                            { dateEvent: "$date", type: "created" },
+                            {
+                                dateEvent: {
+                                    $cond: [
+                                        { $and: [{ $eq: ["$state", 2] }, { $ne: ["$dateResolution", null] }] },
+                                        "$dateResolution",
+                                        null
+                                    ]
+                                },
+                                type: "resolved"
+                            }
+                        ]
                     }
                 },
+                { $unwind: "$events" },
+                { $match: { "events.dateEvent": { $ne: null } } },
+                {
+                    $group: {
+                        _id: { $dateToString: { format: "%Y-%m-%d", date: "$events.dateEvent" } },
+                        created: { $sum: { $cond: [{ $eq: ["$events.type", "created"] }, 1, 0] } },
+                        resolved: { $sum: { $cond: [{ $eq: ["$events.type", "resolved"] }, 1, 0] } }
+                    }
+                },
+
                 { $sort: { _id: 1 } },
-                { $project: { _id: 0, date: '$_id', created: 1, resolved: 1 } }
+                {
+                    $project: {
+                        _id: 0,
+
+                        date: { $substr: ["$_id", 5, 5] },
+                        created: 1,
+                        resolved: 1
+                    }
+                }
             ]);
         }
 
-        if (reportKey === 'RISK_SEVERITY' || reportKey === 'OPERATIONAL_SUMMARY') {
-
+        // 2. RIESGO Y CALIDAD
+        if (reportKey === 'RIESGO_Y_CALIDAD') {
             const severityAgg = await Claims.aggregate([
                 ...pipelineBase,
                 { $group: { _id: '$Idseverity', count: { $sum: 1 } } },
                 {
-                    $lookup: { 
+                    $lookup: {
                         from: 'severities',
                         localField: '_id',
                         foreignField: '_id',
@@ -167,7 +133,7 @@ export const generatePredefinedReport = async (req, res) => {
                 { $group: { _id: '$Idrecurrence', count: { $sum: 1 } } },
                 {
                     $lookup: {
-                        from: 'recurrences', 
+                        from: 'recurrences',
                         localField: '_id',
                         foreignField: '_id',
                         as: 'details'
@@ -179,7 +145,8 @@ export const generatePredefinedReport = async (req, res) => {
             reportData.recurrenceCounts = recurrenceAgg;
         }
 
-        if (reportKey === 'CUSTOMER_QUALITY' || reportKey === 'OPERATIONAL_SUMMARY') {
+        // 3. SATISFACCIÓN DEL CLIENTE
+        if (reportKey === 'SATIFACCION_DEL_CLIENTE') {
             reportData.ratingCounts = await Claims.aggregate([
                 ...pipelineBase,
                 {
@@ -188,30 +155,98 @@ export const generatePredefinedReport = async (req, res) => {
                         'clientDetails._id': { $exists: true }
                     }
                 },
-
                 {
                     $group: {
                         _id: '$clientDetails._id',
                         lastRating: { $first: '$clientDetails.last_rating' }
                     }
                 },
-
                 {
                     $group: {
                         _id: '$lastRating',
                         count: { $sum: 1 }
                     }
                 },
-
                 { $project: { _id: 0, rating: '$_id', count: 1 } },
                 { $sort: { rating: 1 } }
+            ]);
+        }
+
+        if (reportKey === 'DISTRIBUCION_POR_TIPO') {
+            reportData.typeCounts = await Claims.aggregate([
+                ...pipelineBase,
+                { $group: { _id: '$IdService', count: { $sum: 1 } } },
+                {
+                    $lookup: {
+                        from: 'services',
+                        localField: '_id',
+                        foreignField: '_id',
+                        as: 'details'
+                    }
+                },
+                { $unwind: '$details' },
+                { $project: { _id: 0, name: '$details.name', count: 1 } },
+                { $sort: { count: -1 } }
+            ]);
+        }
+
+        if (reportKey === 'ESTADO_ACTUAL') {
+            reportData.stateDistribution = await Claims.aggregate([
+                ...pipelineBase,
+                { $group: { _id: '$state', count: { $sum: 1 } } },
+                { $project: { _id: 0, state: '$_id', count: 1 } },
+                { $sort: { state: 1 } }
+            ]);
+        }
+
+
+        if (reportKey === 'TOP_CLIENTES') {
+            reportData.topClients = await Claims.aggregate([
+                ...pipelineBase,
+                {
+                    $group: {
+                        _id: '$clientDetails._id',
+                        clientName: { $first: '$clientDetails.name' }, 
+                        totalClaims: { $sum: 1 }
+                    }
+                },
+                { $sort: { totalClaims: -1 } },
+                { $limit: 10 },
+                { $project: { _id: 0, clientName: 1, totalClaims: 1 } }
+            ]);
+        }
+
+        if (reportKey === 'TIEMPO_RESOLUCION') {
+            reportData.resolutionTime = await Claims.aggregate([
+                ...pipelineBase,
+                { $match: { state: 2, dateResolution: { $exists: true, $ne: null } } },
+                {
+                    $project: {
+                        resolutionTimeHours: {
+                            $divide: [
+                                { $subtract: ["$dateResolution", "$date"] },
+                                1000 * 60 * 60
+                            ]
+                        }
+                    }
+                },
+                {
+                    $group: {
+                        _id: null,
+                        avgResolutionTimeHours: { $avg: "$resolutionTimeHours" },
+                        minResolutionTime: { $min: "$resolutionTimeHours" },
+                        maxResolutionTime: { $max: "$resolutionTimeHours" }
+                    }
+                },
+                { $project: { _id: 0 } }
             ]);
         }
 
         return res.status(200).json({ success: true, data: reportData });
 
     } catch (error) {
-        console.error(`Error crítico al generar el reporte ${reportKey}:`, error);
+        const keyAttempted = req && req.body && req.body.reportKey ? req.body.reportKey : 'DESCONOCIDA';
+        console.error(`Error crítico al generar el reporte ${keyAttempted}:`, error);
         return res.status(500).json({ success: false, message: "Error interno al generar el reporte." });
     }
 }

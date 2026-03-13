@@ -1,5 +1,3 @@
-import { renderCharts } from './chartRenderer.js'; 
-
 export async function exportChartsToPDF(reportOptions, reportData, chartInstancesToExport) {
     const element = document.getElementById('report-content-area');
 

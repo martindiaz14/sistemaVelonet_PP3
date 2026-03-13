@@ -1,20 +1,39 @@
 import { Router } from "express";
 import { readFile, writeFile } from 'fs/promises';
-import {claimsByState, closeClaim, searchClaims, filterClaims, createClaims} from "../db/actions/claims.actions.js";
+import {claimsByState, closeClaim, searchClaims, filterClaims, createClaims, quickResolveClaim} from "../db/actions/claims.actions.js";
 import { generatePredefinedReport } from '../services/reports.service.js';
 
 const router = Router();
 
 router.post('/create' , async(req, res)=>{
-const {IdClient,IdEmployee, date, claimNumber,desc,state,Idrecurrence,Idseverety,dateResolution,descTec,resolutionTime} = req.body
+const { IdClient, desc, Idrecurrence, Idservice } = req.body;
+    if (!IdClient || !desc || !Idrecurrence || !Idservice) {
+        return res.status(400).json({ 
+            status: false, 
+            message: "Faltan campos obligatorios (Cliente, descripción, recurrencia o servicio)." 
+        });
+    }
 
-try {
-    const result = await createClaims({IdClient,IdEmployee, date, claimNumber,desc,state,Idrecurrence,Idseverety,dateResolution,descTec,resolutionTime})
-    res.status(200).json(result)
-} catch (error) {
-    console.error("Error al crear un nuevo reclamo:", error);
-    res.status(400).json({status:false})
-}
+    try {
+        const result = await createClaims({ 
+            IdClient, 
+            desc, 
+            Idrecurrence, 
+            Idservice 
+        });
+
+        res.status(201).json({
+            status: true,
+            message: "Reclamo creado con éxito",
+            data: result
+        });
+    } catch (error) {
+        console.error("Error al crear un nuevo reclamo:", error);
+        res.status(500).json({ 
+            status: false, 
+            message: "Error interno al procesar el reclamo" 
+        });
+    }
 
 })
 
@@ -140,5 +159,6 @@ router.patch('/close/:id', async (req, res) => {
 
 
 router.post('/reports', generatePredefinedReport);
+router.post('/quick-resolve', quickResolveClaim);
 
 export default router

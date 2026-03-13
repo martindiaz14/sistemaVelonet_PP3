@@ -1,5 +1,27 @@
 import { API } from "./api.js"
 
+export const createClaims = async (data) =>{
+try {
+        const response = await fetch(`${API}/claims/create`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Error al crear el reclamo');
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error("Error en el servicio createClaims:", error);
+        throw error;
+    }
+
+}
 
 export const addclaimsByState = async (state) => {
     try {
@@ -18,6 +40,7 @@ export const addclaimsByState = async (state) => {
         return claims
     } catch (error) {
         console.error(error)
+        throw error;
     }
 }
 
@@ -144,6 +167,29 @@ export const generatePredefinedReport = async (reportOptions) => {
 
     } catch (error) {
         console.error("Fallo al solicitar la generación del reporte:", error);
+        throw error;
+    }
+}
+
+export const quickResolveClaimService = async (token, resolveData) => {
+    try {
+        const response = await fetch(`${API}/claims/quick-resolve`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` 
+            },
+            body: JSON.stringify(resolveData)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Error al intentar cerrar el reclamo');
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error("Fallo en el servicio quickResolveClaim:", error);
         throw error;
     }
 }

@@ -19,6 +19,7 @@ const __dirname = path.dirname(__filename);
 
 app.use(express.json());
 
+
 app.listen(port, () => {
     console.log(`servidor levantado en puerto ${port}`)
 })

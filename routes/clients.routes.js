@@ -1,6 +1,6 @@
 import { Router } from "express";
 import {readFile} from 'fs/promises';
-import { clientsAll, searchClients } from "../db/actions/clients.actions.js";
+import { clientsAll, searchClients, clientsAllOptions } from "../db/actions/clients.actions.js";
 
 
 const router = Router();
@@ -13,6 +13,16 @@ router.get('/all', async (req,res)=>{
     res.status(400).json({status:false})
  }  
 })
+
+router.get('/allOptions', async (req,res)=>{
+ try {
+    const result = await clientsAllOptions()
+    res.status(200).json(result)
+ } catch (error) {
+    res.status(400).json({status:false})
+ }  
+})
+
 
 router.get('/search', async (req, res) => {
     try {

@@ -4,19 +4,59 @@ import clients from "../schemas/clients.schema.js";
 import types from "../schemas/type.schema.js";
 import recurrence from "../schemas/recurrence.schema.js";
 import employee from "../schemas/employees.schema.js";
+import { getNextEmployee } from "./employees.actions.js";
+import { sendSingleClaimNotification } from "../../services/gmail.service.js";
 import severity from "../schemas/severity.schema.js"
 import service from "../schemas/service.schema.js";
 import bcrypt from 'bcryptjs';
 import mongoose from "mongoose";
+import jwt from "jsonwebtoken";
 
-export const createClaims = async ({ IdClient, IdEmployee, date, claimNumber, desc, state, Idrecurrence, Idseverety, dateResolution, descTec, resolutionTime, Idservice }) => {
+export const createClaims = async ({ IdClient, desc, Idrecurrence: nameRec, Idservice: nameServ }) => {
     try {
-        await connectToDatabase()
+        await connectToDatabase();
 
-        const res = await claims.create({ IdClient, IdEmployee, date, claimNumber, desc, state, Idrecurrence, Idseverety, dateResolution, descTec, resolutionTime })
-        return JSON.parse(JSON.stringify(res))
+        const recurrenceDocs = await getIdsByName(recurrence, nameRec);
+        const serviceDocs = await getIdsByName(service, nameServ);
+
+        const finalRecurrenceId = recurrenceDocs.length > 0 ? recurrenceDocs[0] : null;
+        const finalServiceId = serviceDocs.length > 0 ? serviceDocs[0] : null;
+
+        if (!finalRecurrenceId || !finalServiceId) {
+            throw new Error(`No se encontró ID para: ${nameRec} o ${nameServ}`);
+        }
+        const IdEmployee = await getNextEmployee();
+        let claimNumber;
+        let isUnique = false;
+
+        while (!isUnique) {
+            claimNumber = Math.floor(100000 + Math.random() * 900000);
+            const existingClaim = await claims.exists({ claimNumber });
+            if (!existingClaim) {
+                isUnique = true;
+            }
+        }
+
+        const newClaimData = {
+            IdClient,
+            IdEmployee,
+            date: new Date(),
+            claimNumber,
+            desc,
+            state: 1,
+            Idrecurrence: finalRecurrenceId,
+            IdService: finalServiceId
+        };
+
+
+
+        const newClaim = await claims.create(newClaimData);
+        await sendSingleClaimNotification(newClaim);
+        return JSON.parse(JSON.stringify(newClaim));
+
     } catch (error) {
-        console.log(error)
+        console.error("Error al crear el reclamo en el servidor:", error.message);
+        throw error;
     }
 }
 
@@ -28,6 +68,9 @@ const getIdsByName = async (model, names) => {
     const documents = await model.find({ name: { $in: nameArray.map(n => new RegExp(n, 'i')) } }).select('_id');
     return documents.map(doc => doc._id);
 };
+
+let currentTechIndex = 0;
+
 
 const calculateResolutionTime = (startDate, endDate) => {
 
@@ -55,6 +98,11 @@ export const claimsByState = async (claimState) => {
     try {
         await connectToDatabase();
 
+        // 1. Definimos el criterio de ordenamiento dinámicamente.
+        // Si el estado es 2 (Resueltos/Historial), ordenamos por fecha de resolución descendente.
+        // Si es cualquier otro estado, ordenamos por fecha de creación descendente.
+        const sortCriteria = claimState === 2 ? { dateResolution: -1 } : { date: -1 };
+
         const claimsData = await claims.find({ state: claimState })
             .populate({
                 path: 'IdClient',
@@ -77,8 +125,9 @@ export const claimsByState = async (claimState) => {
                 select: 'name'
             })
             .populate('IdEmployee', 'name')
-            .sort({ date: -1 })
+            .sort(sortCriteria) // 2. Aplicamos la variable dinámica aquí
             .exec();
+
         const formattedClaims = claimsData.map(claim => {
 
             let plainClaim = claim.toObject ? claim.toObject() : claim;
@@ -101,6 +150,7 @@ export const claimsByState = async (claimState) => {
 
             return plainClaim;
         });
+
         return JSON.parse(JSON.stringify(formattedClaims));
 
     } catch (error) {
@@ -180,7 +230,6 @@ export const searchClaims = async (searchTerm, claimState) => {
         let clientsFoundByDni = [];
 
         if (trimmedTerm.length === 0) {
-            console.log("ℹ️ Busqueda vacía. Trayendo todos los reclamos con state = 2.");
             const stateQuery = { state: claimState };
 
             const claimsData = await claims.find(stateQuery)
@@ -284,6 +333,7 @@ export const searchClaims = async (searchTerm, claimState) => {
             })
             .populate({ path: 'Idrecurrence', select: 'name' })
             .populate({ path: 'Idseverity', select: 'name' })
+            .populate({ path: 'IdService', select: 'name' })
             .populate('IdEmployee', 'name')
             .sort({ date: -1 })
             .exec();
@@ -423,7 +473,7 @@ export const filterClaims = async (filters) => {
             const formatDateTime = (dateField) => {
                 if (!dateField) return 'N/A';
                 const date = new Date(dateField);
-                return `${date.toLocaleDateString('es-ES')} ${date.toLocaleTimeString('es-ES', {hour:'2-digit', minute:'2-digit', hour12:false})}`;
+                return `${date.toLocaleDateString('es-ES')} ${date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false })}`;
             };
             plainClaim.date = formatDateTime(plainClaim.date);
             plainClaim.dateResolution = formatDateTime(plainClaim.dateResolution);
@@ -435,5 +485,70 @@ export const filterClaims = async (filters) => {
     } catch (error) {
         console.error("❌ Error en filterClaims:", error);
         throw error;
+    }
+};
+
+
+export const quickResolveClaim = async (req, res) => {
+    try {
+        await connectToDatabase();
+
+        const authHeader = req.headers.authorization;
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            return res.status(401).json({ success: false, message: "No autorizado. Token faltante." });
+        }
+
+        const token = authHeader.split(' ')[1];
+        let decoded;
+
+        try {
+            decoded = jwt.verify(token, process.env.SECRET);
+        } catch (err) {
+            return res.status(401).json({ success: false, message: "El enlace ha expirado o es inválido." });
+        }
+
+        const claimId = decoded.claimId;
+        const { descTec, severity: severityLabel } = req.body;
+
+        if (!descTec || !severityLabel) {
+            return res.status(400).json({ success: false, message: "La descripción y la gravedad son obligatorias." });
+        }
+
+        const existingClaim = await claims.findById(claimId);
+
+        if (!existingClaim || !existingClaim.date) {
+            return res.status(404).json({ success: false, message: `Reclamo no encontrado o sin fecha de inicio.` });
+        }
+
+        if (existingClaim.state === 2) {
+            return res.status(400).json({ success: false, message: "Este reclamo ya fue cerrado anteriormente." });
+        }
+
+        const severityDocument = await severity.findOne({ name: severityLabel });
+
+        if (!severityDocument) {
+            return res.status(400).json({ success: false, message: "Gravedad no válida o no encontrada." });
+        }
+
+        const dateResolution = new Date();
+        const resolutionTimeStr = calculateResolutionTime(existingClaim.date, dateResolution);
+
+        existingClaim.state = 2;
+        existingClaim.descTec = descTec;
+        existingClaim.Idseverity = severityDocument._id;
+        existingClaim.dateResolution = dateResolution;
+        existingClaim.resolutionTime = resolutionTimeStr;
+
+        await existingClaim.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Reclamo cerrado exitosamente.",
+            data: existingClaim
+        });
+
+    } catch (error) {
+        console.error("❌ Fallo crítico en quickResolveClaim:", error.message);
+        return res.status(500).json({ success: false, message: "Error interno al procesar el cierre." });
     }
 };

@@ -18,6 +18,18 @@ export const clientsAll = async () => {
 
 }
 
+
+
+export const clientsAllOptions = async () => {
+    try {
+        await connectToDatabase();
+        const res = await clients.find({}, { name: 1, _id: 1 }).sort({ name: 1 });
+        return JSON.parse(JSON.stringify(res));
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
 export const searchClients = async (searchTerm) => {
     try {
   

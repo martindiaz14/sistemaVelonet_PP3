@@ -20,6 +20,28 @@ return clients
     }
 }
 
+
+export const addclientsOptions = async()=>{
+try{
+const res = await fetch(`${API}/clients/allOptions`,{
+method: 'GET',
+headers: {
+    'Content-Type' : 'application/json',
+}
+})
+
+if(!res.ok){
+throw new Error(`Error: ${res.status}`)
+}
+
+const clients = await res.json()
+return clients
+}catch(error){
+    console.error(error)
+    }
+}
+
+
 export const searchClients = async (searchTerm) => {
     try {
         const url = `${API}/clients/search?q=${encodeURIComponent(searchTerm.trim())}`;

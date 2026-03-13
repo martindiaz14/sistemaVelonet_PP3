@@ -1,10 +1,12 @@
 import nodemailer from 'nodemailer';
 import cron from 'node-cron';
+import jwt from 'jsonwebtoken'; // ⬅️ AGREGADO
 import Claims from '../db/schemas/claims.schema.js';
 import Services from '../db/schemas/service.schema.js';
 import Employee from '../db/schemas/employees.schema.js';
 import Client from '../db/schemas/clients.schema.js'; 
 
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
 
 const transporter = nodemailer.createTransport({
     service: 'gmail', 
@@ -20,23 +22,35 @@ export async function sendSingleClaimNotification(claim) {
             .populate('IdEmployee')
             .populate('IdService');
 
-        const { IdEmployee, IdClient, claimNumber,IdService, desc } = populatedClaim;
+        const { IdEmployee, IdClient, claimNumber, IdService, desc, _id } = populatedClaim;
+
+        const token = jwt.sign({ claimId: _id }, process.env.SECRET, { expiresIn: '7d' });
+        const magicLink = `${FRONTEND_URL}/pages/solver-mobile/index.html?token=${token}`;
 
         const mailOptions = {
             from: process.env.EMAIL_USER || 'tu_email@gmail.com',
             to: IdEmployee.mail,
             subject: `🆕 Nuevo Reclamo Asignado: N° ${claimNumber}`,
             html: `
-                <p>Hola ${IdEmployee.name},</p>
-                <p>Se te ha asignado un nuevo reclamo que requiere tu atención:</p>
-                <div style="border: 1px solid #0284c7; padding: 15px; border-radius: 5px; background-color: #f0f9ff;">
-                    <strong>Cliente:</strong> ${IdClient.name}<br>
-                    <strong>Número de Reclamo:</strong> ${claimNumber}<br>
-                    <strong>Calle y Numero:</strong> ${IdClient.address}<br>
-                    <strong>Servicio:</strong> ${IdService.name}<br>
-                    <strong>Descripción:</strong> ${desc}<br>
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto;">
+                    <p>Hola <strong>${IdEmployee.name}</strong>,</p>
+                    <p>Se te ha asignado un nuevo reclamo que requiere tu atención:</p>
+                    <div style="border-left: 4px solid #0284c7; padding: 15px; border-radius: 5px; background-color: #f0f9ff;">
+                        <strong>Cliente:</strong> ${IdClient.name}<br>
+                        <strong>Número de Reclamo:</strong> #${claimNumber}<br>
+                        <strong>Calle y Numero:</strong> ${IdClient.address}<br>
+                        <strong>Numero de Contacto:</strong> ${IdClient.phone}<br>
+                        <strong>Servicio:</strong> ${IdService.name}<br>
+                        <strong>Descripción:</strong> ${desc}<br>
+                    </div>
+                    
+                    <div style="margin-top: 20px; text-align: center;">
+                        <a href="${magicLink}" style="background-color: #0284c7; color: white; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">
+                            Resolver Reclamo Ahora ☑︎
+                        </a>
+                    </div>
+                    <p style="font-size: 12px; color: #666; text-align: center; margin-top: 15px;">Este enlace expira en 7 dias, pasado este timpo debe haber un cierrre desde el sistema principal.</p>
                 </div>
-                <p>Por favor, ingresa al sistema para gestionarlo.</p>
             `
         };
 
@@ -51,7 +65,6 @@ async function sendPendingClaimsNotifications() {
     console.log(`[Scheduler] Ejecutando verificación de reclamos pendientes a las ${new Date().toISOString()}`);
 
     try {
-
         const pendingClaims = await Claims.find({ state: 1 })
             .populate('IdClient')  
             .populate('IdEmployee')
@@ -77,15 +90,27 @@ async function sendPendingClaimsNotifications() {
         for (const employeeId in claimsByEmployee) {
             const { employee, claimsList } = claimsByEmployee[employeeId];
             
-            const claimsDetailsHtml = claimsList.map(claim => `
-                <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 15px; border-radius: 5px;">
-                    <strong>Asunto:</strong> El cliente (${claim.IdClient.name}) está esperando que atiendas su reclamo con el número (${claim.claimNumber}).<br>
+            const claimsDetailsHtml = claimsList.map(claim => {
+                const token = jwt.sign({ claimId: claim._id }, process.env.SECRET, { expiresIn: '24h' });
+                const magicLink = `${FRONTEND_URL}/quick-resolve.html?token=${token}`;
+
+                return `
+                <div style="border: 1px solid #e5e7eb; padding: 15px; margin-bottom: 15px; border-radius: 8px; background-color: #fff;">
+                    <strong>Asunto:</strong> El cliente (${claim.IdClient.name}) está esperando que atiendas su reclamo con el número (#${claim.claimNumber}).<br>
                     <strong>Calle y Numero:</strong> ${claim.IdClient.address}<br>
+                    <strong>Numero de Contacto:</strong> ${IdClient.phone}<br>
                     <strong>Servicio:</strong> ${claim.IdService.name}<br>
                     <strong>Descripción:</strong> ${claim.desc}<br>
-                    <small>Asignado desde: ${new Date(claim.date).toLocaleDateString()}</small>
+                    <small style="color: #d97706;">Asignado desde: ${new Date(claim.date).toLocaleDateString()}</small>
+                    
+                    <div style="margin-top: 15px;">
+                        <a href="${magicLink}" style="background-color: #0ea5e9; color: white; padding: 8px 15px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 14px; display: inline-block;">
+                            Cerrar #${claim.claimNumber}
+                        </a>
+                    </div>
                 </div>
-            `).join('');
+                `;
+            }).join('');
 
 
             const mailOptions = {
@@ -93,10 +118,14 @@ async function sendPendingClaimsNotifications() {
                 to: employee.mail,
                 subject: `⚠️ Tienes ${claimsList.length} Reclamo(s) de Alta Prioridad Pendiente(s)`,
                 html: `
-                    <p>Hola ${employee.name},</p>
-                    <p>La siguiente lista de reclamos te ha sido asignada y necesita tu atención inmediata. Han estado en estado PENDIENTE por más de 24 horas:</p>
-                    ${claimsDetailsHtml}
-                    <p>Por favor, gestiona estos reclamos a la brevedad.</p>
+                    <div style="font-family: Arial, sans-serif; background-color: #f9fafb; padding: 20px;">
+                        <p>Hola <strong>${employee.name}</strong>,</p>
+                        <p>La siguiente lista de reclamos te ha sido asignada y necesita tu atención inmediata. Han estado en estado PENDIENTE por más de 24 horas:</p>
+                        
+                        ${claimsDetailsHtml}
+                        
+                        <p style="text-align: center; margin-top: 20px;">Por favor, gestiona estos reclamos a la brevedad para cumplir con los tiempos de respuesta.</p>
+                    </div>
                 `
             };
 
@@ -110,7 +139,6 @@ async function sendPendingClaimsNotifications() {
 }
 
 export function startNotificationScheduler() {
-
     cron.schedule('30 12 * * *', () => {
         sendPendingClaimsNotifications();
     }, {
@@ -118,5 +146,10 @@ export function startNotificationScheduler() {
         timezone: "America/Argentina/Buenos_Aires"
     });
 
+<<<<<<< HEAD
     console.log("✅ Sistema de notificación automática iniciado: Se enviará cada 24 horas (medianoche).");
 }
+=======
+    console.log("✅ Sistema de notificación automática iniciado: Se enviará cada 24 horas a las 12:30 PM.");
+}
+>>>>>>> 06ba39a (cambios menores)

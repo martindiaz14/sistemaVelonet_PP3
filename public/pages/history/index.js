@@ -1,13 +1,32 @@
 import { navbar } from "../../general-components/nav.js";
 import { claimscard } from "./components/claimscard.js";
 import { addclaimsByState, searchClaims, filterClaims, generatePredefinedReport } from "../../APIs/claims.api.js";
-import { setupReportListeners } from './components/reports/reportModule.js';
+import { setupReportListeners } from './components/reports/report-preview.js';
 import { setData } from "../../utils/localStorage.js";
+import { addclientsOptions } from "../../APIs/clients.api.js";
 
 
 const renderNavbar = () => {
     const navbarContainer = document.getElementById('header');
     navbarContainer.innerHTML = navbar();
+};
+
+let allClients = [];
+const loadDatalist = async () => {
+    try {
+        allClients = await addclientsOptions();
+        const dataList = document.getElementById('clients-list');
+        if (dataList) {
+            dataList.innerHTML = '';
+            allClients.forEach(c => {
+                const option = document.createElement('option');
+                option.value = `${c.name} (#${c._id.slice(-4)})`;
+                dataList.appendChild(option);
+            });
+        }
+    } catch (error) {
+        console.error("Error cargando Reclamos:", error);
+    }
 };
 
 document.addEventListener('DOMContentLoaded', renderNavbar)
@@ -62,22 +81,49 @@ async function handleReportActions() {
         console.error("Error en la generación del reporte:", error);
     }
 }
-document.addEventListener('change', (event) => {
-    if (event.target && event.target.id === 'time-select') {
-        const timeSelect = event.target;
-        const popupDivDate = document.getElementById('popup-div-date');
-
+document.addEventListener('change', (e) => {
+    if (e.target.id === 'time-select') {
+        // Buscamos el elemento dentro del evento para asegurar que existe
+        const popupDate = document.getElementById('popup-div-date');
+        
+        
         const dateFrom = document.getElementById('date-from');
         const dateTo = document.getElementById('date-to');
 
-        console.log("Evento capturado. Valor:", timeSelect.value);
+        if (!popupDate) return;
 
-        if (timeSelect.value === 'P') {
-            popupDivDate.classList.remove('hidden');
-            popupDivDate.style.display = 'block';
+        if (e.target.value === 'Personalizado') {
+            // Quitamos la clase de Tailwind Y el estilo en línea
+            popupDate.classList.remove('hidden');
+            popupDate.style.display = 'block'; 
         } else {
-            popupDivDate.classList.add('hidden');
-            popupDivDate.style.display = 'none';
+            // Volvemos a ocultar
+            popupDate.classList.add('hidden');
+            popupDate.style.display = 'none';
+
+                        if (dateFrom) dateFrom.value = '';
+            if (dateTo) dateTo.value = '';
+        }
+    }
+});
+
+
+document.addEventListener('change', (e) => {
+    if (e.target.id === 'time-filter-select') {
+        const popupDate = document.getElementById('filter-div-date');
+        
+        
+        const dateFrom = document.getElementById('date-filter-from');
+        const dateTo = document.getElementById('date-filter-to');
+
+        if (!popupDate) return;
+
+        if (e.target.value === 'P') {
+            popupDate.classList.remove('hidden');
+            popupDate.style.display = 'block'; 
+        } else {
+            popupDate.classList.add('hidden');
+            popupDate.style.display = 'none';
 
             if (dateFrom) dateFrom.value = '';
             if (dateTo) dateTo.value = '';
@@ -85,28 +131,7 @@ document.addEventListener('change', (event) => {
     }
 });
 
-document.addEventListener('change', (event) => {
-    if (event.target && event.target.id === 'time-filter-select') {
-        const timeSelect = event.target;
-        const popupDivDate = document.getElementById('filter-div-date');
 
-        const dateFrom = document.getElementById('dat-filter-from');
-        const dateTo = document.getElementById('date.filter-to');
-
-        console.log("Evento capturado. Valor:", timeSelect.value);
-
-        if (timeSelect.value === 'Personalizado') {
-            popupDivDate.classList.remove('hidden');
-            popupDivDate.style.display = 'block';
-        } else {
-            popupDivDate.classList.add('hidden');
-            popupDivDate.style.display = 'none';
-
-            if (dateFrom) dateFrom.value = '';
-            if (dateTo) dateTo.value = '';
-        }
-    }
-});
 
 document.addEventListener('DOMContentLoaded', async () => {
     setupReportListeners(handleReportActions);
@@ -231,8 +256,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const searchInput = document.getElementById("searchInput");
 const container = document.getElementById("container");
-const filterPopupDiv = document.getElementById("popup-div");
-const applyFiltersButton = document.getElementById("apply-btn");
 
 
 const timeSelect = document.getElementById("time-filter-select");
@@ -255,48 +278,27 @@ const getFilterValues = () => {
     };
 };
 
-const handleApplyFilters = async () => {
-    const filters = getFilterValues();
-
-    filterPopupDiv.classList.add('hidden');
-
-    container.innerHTML = `<div class="text-center p-8 text-xl text-gray-400">Aplicando filtros...</div>`;
-
-    try {
-        const claims = await filterClaims(filters);
-        displayClaims(claims);
-    } catch (error) {
-        console.error("Fallo al aplicar filtros:", error);
-        renderclaims();
-    }
-};
 
 
 document.addEventListener('DOMContentLoaded', async () => {
     renderNavbar();
-
+    await loadDatalist();
+    
     const storedSearchTerm = localStorage.getItem('clientSearchTerm');
-
-    if (searchInput) {
-        searchInput.addEventListener('input', handleSearch);
-    }
-
+    
     if (storedSearchTerm && searchInput) {
         searchInput.value = storedSearchTerm;
-        try {
-            const claims = await searchClaims(storedSearchTerm, CURRENT_CLAIM_STATE);
-            displayClaims(claims);
-        } catch (error) {
-            console.error("Fallo en la búsqueda inicial pre-cargada:", error);
-            displayClaims([]);
-        }
         localStorage.removeItem('clientSearchTerm');
-    } else {
+        
+        const claims = await searchClaims(storedSearchTerm, CURRENT_CLAIM_STATE);
+        displayClaims(claims);
+    } 
+
+    else if (searchInput && searchInput.value.trim() !== '') {
+        const claims = await searchClaims(searchInput.value.trim(), CURRENT_CLAIM_STATE);
+        displayClaims(claims);
+    } 
+    else {
         await renderclaims();
     }
-
-    if (filterPopupDiv && applyFiltersButton) {
-        applyFiltersButton.addEventListener('click', handleApplyFilters);
-    }
 });
-
