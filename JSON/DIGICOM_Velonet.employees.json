@@ -1,0 +1,36 @@
+[{
+  "_id": {
+    "$oid": "68fd214e0e9a64f2bb4a06b5"
+  },
+  "name": "Jose Sosa",
+  "mail": "josesosa3@gmail.com",
+  "phone": 2954523412,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fd21670e9a64f2bb4a06b7"
+  },
+  "name": "Jhon Doe",
+  "mail": "jhondoe1@gmail.com",
+  "phone": 2954512344,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68fd21790e9a64f2bb4a06b9"
+  },
+  "name": "Maria Rosas",
+  "mail": "mariarosas2@gmail.com",
+  "phone": 2954512623,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69122824b3305266a41ec7be"
+  },
+  "name": "Martin Diaz",
+  "mail": "sikus5203@gmail.com",
+  "phone": 2954523234,
+  "__v": 0
+}]

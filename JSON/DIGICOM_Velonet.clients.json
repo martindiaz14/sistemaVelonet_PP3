@@ -1,0 +1,139 @@
+[{
+  "_id": {
+    "$oid": "69065010d51fcc0620b4978f"
+  },
+  "name": "Ana García",
+  "dni": 12345678,
+  "phone": 34600111222,
+  "address": "Calle Falsa 123, Madrid",
+  "count_calls": 15,
+  "last_rating": 5,
+  "IdType": {
+    "$oid": "68fd21b90e9a64f2bb4a06bb"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69064ff8d51fcc0620b4978d"
+  },
+  "img": "",
+  "name": "Roberto Fernández",
+  "dni": 87654321,
+  "phone": 34600333444,
+  "address": "Avenida Siempreviva 742, Barcelona",
+  "count_calls": 3,
+  "last_rating": 2,
+  "IdType": {
+    "$oid": "68fd21be0e9a64f2bb4a06bd"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6906501ed51fcc0620b49791"
+  },
+  "name": "María López",
+  "dni": 11223344,
+  "phone": 34600555666,
+  "address": "Plaza Mayor 5, Valencia",
+  "count_calls": 45,
+  "last_rating": 4,
+  "IdType": {
+    "$oid": "68fd21c30e9a64f2bb4a06bf"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6906502ed51fcc0620b49793"
+  },
+  "name": "Javier Pérez",
+  "dni": 55667788,
+  "phone": 34600777888,
+  "address": "Rúa da Rosa 20, Sevilla",
+  "count_calls": 1,
+  "last_rating": 3,
+  "IdType": {
+    "$oid": "68fd21b90e9a64f2bb4a06bb"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69065041d51fcc0620b49795"
+  },
+  "name": "Laura Martínez",
+  "dni": 99001122,
+  "phone": 34600999000,
+  "address": "Paseo de Gracia 80, Barcelona",
+  "count_calls": 22,
+  "last_rating": 5,
+  "IdType": {
+    "$oid": "68fd21be0e9a64f2bb4a06bd"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "691cf6025eadfbc6a4ba999e"
+  },
+  "img": "https://pps.whatsapp.net/v/t61.24694-24/491866745_690152420434474_8901465100997007158_n.jpg?stp=dst-jpg_s96x96_tt6&ccb=11-4&oh=01_Q5Aa3AEbyEvg3hKG0I7NXHTIyhLcukRSCak4gjDV4FN4Vm9QiA&oe=6929F163&_nc_sid=5e03e0&_nc_cat=104",
+  "name": "Andrea Borthiry",
+  "dni": "$2a$08$iXeVueYq3vdTNjBQmdw58.nkLz3FNRMfTWWVI0IQ377yhCTJLqak6",
+  "phone": 172112341913681,
+  "address": "Calle 19 N° 364",
+  "count_calls": 10,
+  "IdType": {
+    "$oid": "68fd21b90e9a64f2bb4a06bb"
+  },
+  "__v": 0,
+  "last_rating": 4
+},
+{
+  "_id": {
+    "$oid": "691cf5949dac5db2abbbe33d"
+  },
+  "img": null,
+  "name": ".....",
+  "dni": "$2a$08$jDoHxmovzoKz0E7NR2hev.8t4yClewknJk7zCLxjKv6m0iPNttEMe",
+  "phone": 219039154630867,
+  "address": "Calle 19 n°364",
+  "count_calls": 2,
+  "IdType": {
+    "$oid": "68fd21be0e9a64f2bb4a06bd"
+  },
+  "__v": 0,
+  "last_rating": 5
+},
+{
+  "_id": {
+    "$oid": "691d0b7e39a4ecb8e256fdba"
+  },
+  "img": "https://pps.whatsapp.net/v/t61.24694-24/473402038_1357437122348693_4239721772288997482_n.jpg?stp=dst-jpg_s96x96_tt6&ccb=11-4&oh=01_Q5Aa3AH5yTfeiw07oN6XnDPaHoaOnSuvxWIHQRGFkC_hP9O1Og&oe=692A0328&_nc_sid=5e03e0&_nc_cat=103",
+  "name": "Giovanna Rodríguez 🖤",
+  "dni": "$2a$08$YpSdJetx9KKQ9pxXD9.QZeaRXTDc3RWRhsFYA2f8RbriIA8JIwKJi",
+  "phone": 5492954230590,
+  "address": "Calle 25 n°221",
+  "count_calls": 14,
+  "IdType": {
+    "$oid": "68fd21be0e9a64f2bb4a06bd"
+  },
+  "__v": 0,
+  "last_rating": 3
+},
+{
+  "_id": {
+    "$oid": "699a23233fb488f8af156d74"
+  },
+  "name": "Roberto Diaz",
+  "dni": "$2a$08$AEZTSNLbiz6IgxCK1Q.9JOjtEWiIOY1tLMBg7gE3Q1OE7A6DZZfGa",
+  "phone": 32414202097903,
+  "address": "34445g66667",
+  "count_calls": 1,
+  "IdType": {
+    "$oid": "68fd21c30e9a64f2bb4a06bf"
+  },
+  "__v": 0,
+  "last_rating": 5
+}]

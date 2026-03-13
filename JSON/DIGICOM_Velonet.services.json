@@ -1,0 +1,24 @@
+[{
+  "_id": {
+    "$oid": "699b6f4b921d21e218a56e66"
+  },
+  "name": "Camaras"
+},
+{
+  "_id": {
+    "$oid": "699b6f86921d21e218a56e69"
+  },
+  "name": "Alarmas"
+},
+{
+  "_id": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  },
+  "name": "Internet"
+},
+{
+  "_id": {
+    "$oid": "699b6fc8921d21e218a56e6d"
+  },
+  "name": "Otros"
+}]

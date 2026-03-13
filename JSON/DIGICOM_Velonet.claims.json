@@ -1,0 +1,1170 @@
+[{
+  "_id": {
+    "$oid": "68fd2b176b83e29f529c74cd"
+  },
+  "IdClient": {
+    "$oid": "691cf5949dac5db2abbbe33d"
+  },
+  "IdEmployee": {
+    "$oid": "68fd21670e9a64f2bb4a06b7"
+  },
+  "date": {
+    "$date": "2025-10-25T19:55:03.338Z"
+  },
+  "claimNumber": 744349,
+  "desc": "No me anda el ONU",
+  "state": 2,
+  "Idrecurrence": {
+    "$oid": "68fd21fa0e9a64f2bb4a06cd"
+  },
+  "__v": 0,
+  "Idseverity": {
+    "$oid": "68fd21db0e9a64f2bb4a06c3"
+  },
+  "dateResolution": {
+    "$date": "2025-10-29T20:02:09.377Z"
+  },
+  "descTec": "Cambio de ONU",
+  "resolutionTime": "4 días, 0 horas",
+  "IdService": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  }
+},
+{
+  "_id": {
+    "$oid": "690653c9cd31321bb27ba974"
+  },
+  "IdClient": {
+    "$oid": "6906501ed51fcc0620b49791"
+  },
+  "IdEmployee": {
+    "$oid": "68fd214e0e9a64f2bb4a06b5"
+  },
+  "date": {
+    "$date": "2024-10-28T11:45:00.000Z"
+  },
+  "claimNumber": 321022,
+  "desc": "Lentitud generalizada en la navegación web, aunque los tests de velocidad dan valores aceptables. Posible saturación en horas pico.",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21f60e9a64f2bb4a06cb"
+  },
+  "__v": 0,
+  "IdService": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  }
+},
+{
+  "_id": {
+    "$oid": "690653cfcd31321bb27ba976"
+  },
+  "IdClient": {
+    "$oid": "6906502ed51fcc0620b49793"
+  },
+  "IdEmployee": {
+    "$oid": "68fd21670e9a64f2bb4a06b7"
+  },
+  "date": {
+    "$date": "2024-10-29T20:10:00.000Z"
+  },
+  "resolutionTime": "50m",
+  "dateResolution": {
+    "$date": "2024-10-29T21:00:00.000Z"
+  },
+  "claimNumber": 741841,
+  "desc": "Necesito cambiar la contraseña de mi red Wi-Fi y no puedo acceder al router. La conexión por cable funciona.",
+  "state": 2,
+  "descTec": "Asistencia remota para acceder a la configuración del router. Se reseteó la clave de acceso a la interfaz web y se cambió el SSID/Password del Wi-Fi según solicitud del cliente.",
+  "Idrecurrence": {
+    "$oid": "68fd21f20e9a64f2bb4a06c9"
+  },
+  "__v": 0,
+  "Idseverity": {
+    "$oid": "68fd21d60e9a64f2bb4a06c1"
+  },
+  "IdService": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  }
+},
+{
+  "_id": {
+    "$oid": "690653e2cd31321bb27ba97a"
+  },
+  "IdClient": {
+    "$oid": "69065010d51fcc0620b4978f"
+  },
+  "IdEmployee": {
+    "$oid": "68fd21790e9a64f2bb4a06b9"
+  },
+  "date": {
+    "$date": "2024-10-30T14:20:00.000Z"
+  },
+  "resolutionTime": "3h 00m",
+  "dateResolution": {
+    "$date": "2024-10-30T17:20:00.000Z"
+  },
+  "claimNumber": 6301,
+  "desc": "Ping muy alto al jugar online, injugable. El resto de la conexión parece estar bien.",
+  "state": 2,
+  "descTec": "Se detectó y eliminó un bucle de red (loop) causado por un switch defectuoso en la red interna del cliente. Se instruyó al cliente a conectar correctamente los equipos. Latencia normalizada.",
+  "Idrecurrence": {
+    "$oid": "68fd21f20e9a64f2bb4a06c9"
+  },
+  "__v": {
+    "$oid": "69065774b100437c21287e93"
+  },
+  "Idseverity": "68fd21db0e9a64f2bb4a06c3",
+  "IdService": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  }
+},
+{
+  "_id": {
+    "$oid": "690653eccd31321bb27ba97c"
+  },
+  "IdClient": {
+    "$oid": "691cf6025eadfbc6a4ba999e"
+  },
+  "IdEmployee": {
+    "$oid": "68fd214e0e9a64f2bb4a06b5"
+  },
+  "date": {
+    "$date": "2024-11-01T07:00:00.000Z"
+  },
+  "claimNumber": 114721,
+  "desc": "El internet funciona, pero con microcortes esporádicos y muy rápidos, afectando a la descarga de archivos grandes.",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21f60e9a64f2bb4a06cb"
+  },
+  "__v": 0,
+  "IdService": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  }
+},
+{
+  "_id": {
+    "$oid": "691e287542a731a5b3894053"
+  },
+  "IdClient": {
+    "$oid": "691d0b7e39a4ecb8e256fdba"
+  },
+  "IdEmployee": {
+    "$oid": "69122824b3305266a41ec7be"
+  },
+  "date": {
+    "$date": "2025-11-19T20:28:37.239Z"
+  },
+  "claimNumber": 389431,
+  "desc": "No tengo internet",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21f60e9a64f2bb4a06cb"
+  },
+  "__v": 0,
+  "IdService": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  }
+},
+{
+  "_id": {
+    "$oid": "68fd49dda333889925fc06a7"
+  },
+  "IdClient": {
+    "$oid": "691cf5949dac5db2abbbe33d"
+  },
+  "IdEmployee": {
+    "$oid": "68fd21790e9a64f2bb4a06b9"
+  },
+  "date": {
+    "$date": "2025-10-25T22:06:21.808Z"
+  },
+  "claimNumber": 192371,
+  "desc": "No anda el ONU",
+  "state": 2,
+  "Idrecurrence": {
+    "$oid": "68fd21f60e9a64f2bb4a06cb"
+  },
+  "__v": 0,
+  "dateResolution": {
+    "$date": "2025-10-29T22:06:21.808Z"
+  },
+  "descTec": "Resuelto con cambio de ONU",
+  "resolutionTime": "4 Dias, 0 Horas",
+  "Idseverity": {
+    "$oid": "68fd21db0e9a64f2bb4a06c3"
+  },
+  "IdService": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  }
+},
+{
+  "_id": {
+    "$oid": "68fd4a9fb503428f32ef43a6"
+  },
+  "IdClient": {
+    "$oid": "691d0b7e39a4ecb8e256fdba"
+  },
+  "IdEmployee": {
+    "$oid": "68fd21790e9a64f2bb4a06b9"
+  },
+  "date": {
+    "$date": "2025-10-25T22:09:35.885Z"
+  },
+  "claimNumber": 2841,
+  "desc": "No funcina",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21fa0e9a64f2bb4a06cd"
+  },
+  "__v": 0,
+  "IdService": {
+    "$oid": "699b6fc8921d21e218a56e6d"
+  }
+},
+{
+  "_id": {
+    "$oid": "69028692158b182b9b1d8697"
+  },
+  "IdClient": {
+    "$oid": "691cf6025eadfbc6a4ba999e"
+  },
+  "IdEmployee": {
+    "$oid": "68fd21790e9a64f2bb4a06b9"
+  },
+  "date": {
+    "$date": "2025-10-25T22:09:35.885Z"
+  },
+  "claimNumber": 245156,
+  "desc": "Se cortaron los cables que conectan con el modulo",
+  "state": 2,
+  "Idrecurrence": {
+    "$oid": "68fd21fa0e9a64f2bb4a06cd"
+  },
+  "__v": 0,
+  "Idseverity": {
+    "$oid": "68fd21de0e9a64f2bb4a06c5"
+  },
+  "dateResolution": {
+    "$date": "2025-10-29T21:28:19.483Z"
+  },
+  "descTec": "Los cables se cortaron por causa de la tormenta.\nSe cambiaron y se procedió a verificar el estado del modulo",
+  "resolutionTime": "3 días, 23 horas",
+  "IdService": {
+    "$oid": "699b6fc8921d21e218a56e6d"
+  }
+},
+{
+  "_id": {
+    "$oid": "69065345cd31321bb27ba962"
+  },
+  "IdClient": {
+    "$oid": "69064ff8d51fcc0620b4978d"
+  },
+  "IdEmployee": {
+    "$oid": "68fd214e0e9a64f2bb4a06b5"
+  },
+  "date": {
+    "$date": "2024-11-03T18:00:00.000Z"
+  },
+  "claimNumber": 556944,
+  "desc": "La velocidad de descarga es la mitad de lo contratado en las horas de la tarde, después de las 6 PM.",
+  "state": 2,
+  "Idrecurrence": {
+    "$oid": "68fd21fa0e9a64f2bb4a06cd"
+  },
+  "__v": 0,
+  "IdService": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  },
+  "Idseverity": {
+    "$oid": "68fd21db0e9a64f2bb4a06c3"
+  },
+  "dateResolution": {
+    "$date": "2024-11-04T18:00:00.000Z"
+  },
+  "descTec": "Se procedió a buscar en el servidor la causa, para después ir al hogar del reclamo y revisar router",
+  "resolutionTime": "1 días, 0 horas"
+},
+{
+  "_id": {
+    "$oid": "690653a6cd31321bb27ba96e"
+  },
+  "IdClient": {
+    "$oid": "69065010d51fcc0620b4978f"
+  },
+  "IdEmployee": {
+    "$oid": "68fd214e0e9a64f2bb4a06b5"
+  },
+  "date": {
+    "$date": "2024-10-25T10:00:00.000Z"
+  },
+  "resolutionTime": "4h 30m",
+  "dateResolution": {
+    "$date": "2024-10-25T14:30:00.000Z"
+  },
+  "claimNumber": 459241,
+  "desc": "Caídas intermitentes de la conexión a internet cada 5 minutos, imposible realizar videollamadas. Reinicio de router no soluciona.",
+  "state": 2,
+  "descTec": "Se detectó un alto nivel de ruido en la línea. Se ajustaron los parámetros de modulación en el equipo de cabecera (OLT). Velocidad estable post-ajuste.",
+  "Idrecurrence": {
+    "$oid": "68fd21fa0e9a64f2bb4a06cd"
+  },
+  "__v": 0,
+  "Idseverity": {
+    "$oid": "68fd21de0e9a64f2bb4a06c5"
+  },
+  "IdService": {
+    "$oid": "699b8b6b921d21e218a56e78"
+  }
+},
+{
+  "_id": {
+    "$oid": "690653d9cd31321bb27ba978"
+  },
+  "IdClient": {
+    "$oid": "69064ff8d51fcc0620b4978d"
+  },
+  "IdEmployee": {
+    "$oid": "68fd21790e9a64f2bb4a06b9"
+  },
+  "date": {
+    "$date": "2024-10-30T09:30:00.000Z"
+  },
+  "claimNumber": 258351,
+  "desc": "La conexión se corta completamente cada mañana entre las 9 y 10 AM, y vuelve sola. Patron de desconexión muy específico.",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21fa0e9a64f2bb4a06cd"
+  },
+  "__v": 0,
+  "IdService": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  }
+},
+{
+  "_id": {
+    "$oid": "691cf5a79dac5db2abbbe34c"
+  },
+  "IdClient": {
+    "$oid": "691cf5949dac5db2abbbe33d"
+  },
+  "IdEmployee": {
+    "$oid": "68fd21670e9a64f2bb4a06b7"
+  },
+  "date": {
+    "$date": "2025-11-18T22:39:35.844Z"
+  },
+  "claimNumber": 351788,
+  "desc": "No funciona el sistema",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21f60e9a64f2bb4a06cb"
+  },
+  "__v": 0,
+  "IdService": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  }
+},
+{
+  "_id": {
+    "$oid": "691e2e1830b3168908b5e559"
+  },
+  "IdClient": {
+    "$oid": "691d0b7e39a4ecb8e256fdba"
+  },
+  "IdEmployee": {
+    "$oid": "68fd21790e9a64f2bb4a06b9"
+  },
+  "date": {
+    "$date": "2025-11-19T20:52:40.980Z"
+  },
+  "claimNumber": 359199,
+  "desc": "No anda internet desde ayer",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21fa0e9a64f2bb4a06cd"
+  },
+  "__v": 0,
+  "IdService": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  }
+},
+{
+  "_id": {
+    "$oid": "68fd2bdf6b83e29f529c74d8"
+  },
+  "IdClient": {
+    "$oid": "691cf5949dac5db2abbbe33d"
+  },
+  "IdEmployee": {
+    "$oid": "69122824b3305266a41ec7be"
+  },
+  "date": {
+    "$date": "2025-10-25T19:58:23.491Z"
+  },
+  "claimNumber": 788484,
+  "desc": "No puede acceder a un sitio",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21f60e9a64f2bb4a06cb"
+  },
+  "__v": 0,
+  "IdService": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  }
+},
+{
+  "_id": {
+    "$oid": "68fd4a52b503428f32ef4399"
+  },
+  "IdClient": {
+    "$oid": "691cf5949dac5db2abbbe33d"
+  },
+  "IdEmployee": {
+    "$oid": "68fd21790e9a64f2bb4a06b9"
+  },
+  "date": {
+    "$date": "2025-10-25T22:08:18.899Z"
+  },
+  "claimNumber": 318442,
+  "desc": "El sistema de cables me estorba",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21f20e9a64f2bb4a06c9"
+  },
+  "__v": 0,
+  "IdService": {
+    "$oid": "699b6fc8921d21e218a56e6d"
+  }
+},
+{
+  "_id": {
+    "$oid": "690653bacd31321bb27ba970"
+  },
+  "IdClient": {
+    "$oid": "69065041d51fcc0620b49795"
+  },
+  "IdEmployee": {
+    "$oid": "68fd21670e9a64f2bb4a06b7"
+  },
+  "claimNumber": 100522,
+  "desc": "Velocidad de subida extremadamente lenta, afecta la carga de archivos grandes. La descarga parece normal.",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21f60e9a64f2bb4a06cb"
+  },
+  "__v": 0,
+  "date": {
+    "$date": "2024-10-27T10:30:00.000Z"
+  },
+  "IdService": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  }
+},
+{
+  "_id": {
+    "$oid": "690653c1cd31321bb27ba972"
+  },
+  "IdClient": {
+    "$oid": "691d0b7e39a4ecb8e256fdba"
+  },
+  "IdEmployee": {
+    "$oid": "68fd21790e9a64f2bb4a06b9"
+  },
+  "date": {
+    "$date": "2024-10-27T08:00:00.000Z"
+  },
+  "resolutionTime": "4h 00m",
+  "dateResolution": {
+    "$date": "2024-10-27T12:00:00.000Z"
+  },
+  "claimNumber": 987651,
+  "desc": "El servicio de internet no funciona en absoluto desde anoche. El LED PON/LOS está en rojo.",
+  "state": 2,
+  "descTec": "Fallo físico detectado en el splitter de la zona (causado por humedad). Sustitución del splitter y reconexión de fibra. Servicio reestablecido.",
+  "Idrecurrence": {
+    "$oid": "68fd21f20e9a64f2bb4a06c9"
+  },
+  "__v": 0,
+  "Idseverity": {
+    "$oid": "68fd21de0e9a64f2bb4a06c5"
+  },
+  "IdService": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  }
+},
+{
+  "_id": {
+    "$oid": "690653f4cd31321bb27ba97e"
+  },
+  "IdClient": {
+    "$oid": "6906502ed51fcc0620b49793"
+  },
+  "IdEmployee": {
+    "$oid": "68fd21670e9a64f2bb4a06b7"
+  },
+  "date": {
+    "$date": "2024-11-02T13:30:00.000Z"
+  },
+  "resolutionTime": "45m",
+  "dateResolution": {
+    "$date": "2024-11-02T14:15:00.000Z"
+  },
+  "claimNumber": 802164,
+  "desc": "El Wi-Fi dejó de funcionar, el LED de Wi-Fi en el router está apagado. El servicio por cable sigue funcionando.",
+  "state": 2,
+  "descTec": "Diagnóstico remoto: El Wi-Fi se había desactivado mediante un botón físico en el router. Se instruyó al cliente a reactivarlo. Verificación positiva.",
+  "Idrecurrence": {
+    "$oid": "68fd21f20e9a64f2bb4a06c9"
+  },
+  "__v": {
+    "$oid": "69065749b100437c21287e92"
+  },
+  "Idseverity": {
+    "$oid": "68fd21d60e9a64f2bb4a06c1"
+  },
+  "IdService": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  }
+},
+{
+  "_id": {
+    "$oid": "691cf61d5eadfbc6a4ba99b3"
+  },
+  "IdClient": {
+    "$oid": "691cf6025eadfbc6a4ba999e"
+  },
+  "IdEmployee": {
+    "$oid": "68fd21670e9a64f2bb4a06b7"
+  },
+  "date": {
+    "$date": "2025-11-18T22:41:33.092Z"
+  },
+  "claimNumber": 965168,
+  "desc": "Fallas en el servicio",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21f60e9a64f2bb4a06cb"
+  },
+  "__v": 0,
+  "IdService": {
+    "$oid": "699b6fc8921d21e218a56e6d"
+  }
+},
+{
+  "_id": {
+    "$oid": "691d0b9039a4ecb8e256fdcd"
+  },
+  "IdClient": {
+    "$oid": "691d0b7e39a4ecb8e256fdba"
+  },
+  "IdEmployee": {
+    "$oid": "69122824b3305266a41ec7be"
+  },
+  "date": {
+    "$date": "2025-11-19T00:13:04.178Z"
+  },
+  "claimNumber": 217766,
+  "desc": "La tormenta dejo la ONU con la red Insetable",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21fa0e9a64f2bb4a06cd"
+  },
+  "__v": 0,
+  "IdService": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  }
+},
+{
+  "_id": {
+    "$oid": "691e2a3cd6b1c034b5b6e7e3"
+  },
+  "IdClient": {
+    "$oid": "691d0b7e39a4ecb8e256fdba"
+  },
+  "IdEmployee": {
+    "$oid": "68fd21670e9a64f2bb4a06b7"
+  },
+  "date": {
+    "$date": "2025-11-19T20:36:12.316Z"
+  },
+  "claimNumber": 781981,
+  "desc": "No prende el router",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21f20e9a64f2bb4a06c9"
+  },
+  "__v": 0,
+  "IdService": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  }
+},
+{
+  "_id": {
+    "$oid": "691e2b98e9844791b918d2f1"
+  },
+  "IdClient": {
+    "$oid": "691d0b7e39a4ecb8e256fdba"
+  },
+  "IdEmployee": {
+    "$oid": "68fd21790e9a64f2bb4a06b9"
+  },
+  "date": {
+    "$date": "2025-11-19T20:42:00.982Z"
+  },
+  "claimNumber": 1268,
+  "desc": "Tengo mala conexión",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21fa0e9a64f2bb4a06cd"
+  },
+  "__v": 0,
+  "IdService": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  }
+},
+{
+  "_id": {
+    "$oid": "691e540bc037f53a413a1702"
+  },
+  "IdClient": {
+    "$oid": "691cf6025eadfbc6a4ba999e"
+  },
+  "IdEmployee": {
+    "$oid": "68fd21670e9a64f2bb4a06b7"
+  },
+  "date": {
+    "$date": "2025-11-19T23:34:35.230Z"
+  },
+  "claimNumber": 883962,
+  "desc": "Sigue la falla en la conectar",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21f60e9a64f2bb4a06cb"
+  },
+  "__v": 0,
+  "IdService": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  }
+},
+{
+  "_id": {
+    "$oid": "698cd323f873a79c3409f363"
+  },
+  "IdClient": {
+    "$oid": "691d0b7e39a4ecb8e256fdba"
+  },
+  "IdEmployee": {
+    "$oid": "68fd21670e9a64f2bb4a06b7"
+  },
+  "date": {
+    "$date": "2026-02-11T19:06:11.796Z"
+  },
+  "claimNumber": 127086,
+  "desc": "No tengo internet",
+  "state": 2,
+  "Idrecurrence": {
+    "$oid": "68fd21fa0e9a64f2bb4a06cd"
+  },
+  "__v": 0,
+  "IdService": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  },
+  "Idseverity": {
+    "$oid": "68fd21d60e9a64f2bb4a06c1"
+  },
+  "dateResolution": {
+    "$date": "2026-02-23T23:37:14.937Z"
+  },
+  "descTec": "Revision completa de el cableado y cambio de router realizado",
+  "resolutionTime": "12 días, 4 horas"
+},
+{
+  "_id": {
+    "$oid": "699a2036b04f18b46e70b2c3"
+  },
+  "IdClient": {
+    "$oid": "691cf6025eadfbc6a4ba999e"
+  },
+  "IdEmployee": {
+    "$oid": "68fd21670e9a64f2bb4a06b7"
+  },
+  "date": {
+    "$date": "2026-02-21T21:14:30.564Z"
+  },
+  "claimNumber": 324231,
+  "desc": "Tengo problemas con las camaras",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21f60e9a64f2bb4a06cb"
+  },
+  "__v": 0,
+  "IdService": {
+    "$oid": "699b6f4b921d21e218a56e66"
+  }
+},
+{
+  "_id": {
+    "$oid": "699a212b070f236c82d900f4"
+  },
+  "IdClient": {
+    "$oid": "691cf6025eadfbc6a4ba999e"
+  },
+  "IdEmployee": {
+    "$oid": "68fd21670e9a64f2bb4a06b7"
+  },
+  "date": {
+    "$date": "2026-02-21T21:18:35.091Z"
+  },
+  "claimNumber": 248781,
+  "desc": "Tengo baja señal de WiFi, necesito para trabajar",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21fa0e9a64f2bb4a06cd"
+  },
+  "__v": 0,
+  "IdService": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  }
+},
+{
+  "_id": {
+    "$oid": "699a220e0aa1d0263cf63534"
+  },
+  "IdClient": {
+    "$oid": "691cf6025eadfbc6a4ba999e"
+  },
+  "IdEmployee": {
+    "$oid": "68fd21670e9a64f2bb4a06b7"
+  },
+  "date": {
+    "$date": "2026-02-21T21:22:22.126Z"
+  },
+  "claimNumber": 205923,
+  "desc": "Necesito que alarguen el cable ethernet de mi casa",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21f20e9a64f2bb4a06c9"
+  },
+  "__v": 0,
+  "IdService": {
+    "$oid": "699b6fc8921d21e218a56e6d"
+  }
+},
+{
+  "_id": {
+    "$oid": "699a23513fb488f8af156d83"
+  },
+  "IdClient": {
+    "$oid": "699a23233fb488f8af156d74"
+  },
+  "IdEmployee": {
+    "$oid": "68fd21790e9a64f2bb4a06b9"
+  },
+  "date": {
+    "$date": "2026-02-21T21:27:45.624Z"
+  },
+  "claimNumber": 928451,
+  "desc": "Conexion",
+  "state": 2,
+  "Idrecurrence": {
+    "$oid": "68fd21f20e9a64f2bb4a06c9"
+  },
+  "__v": 0,
+  "IdService": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  },
+  "Idseverity": {
+    "$oid": "68fd21db0e9a64f2bb4a06c3"
+  },
+  "dateResolution": {
+    "$date": "2026-02-23T23:37:59.880Z"
+  },
+  "descTec": "Muy poca descripcion, se procedio a analizar el producto entero, se encontro partes quemadas",
+  "resolutionTime": "2 días, 2 horas"
+},
+{
+  "_id": {
+    "$oid": "699b7e530ab44cabd74fae15"
+  },
+  "IdClient": {
+    "$oid": "691cf6025eadfbc6a4ba999e"
+  },
+  "IdEmployee": {
+    "$oid": "69122824b3305266a41ec7be"
+  },
+  "date": {
+    "$date": "2026-02-22T22:08:19.740Z"
+  },
+  "claimNumber": 674751,
+  "desc": "Tengo baja señal",
+  "state": 2,
+  "Idrecurrence": {
+    "$oid": "68fd21fa0e9a64f2bb4a06cd"
+  },
+  "IdService": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  },
+  "__v": 0,
+  "Idseverity": {
+    "$oid": "68fd21de0e9a64f2bb4a06c5"
+  },
+  "dateResolution": {
+    "$date": "2026-02-25T22:44:54.810Z"
+  },
+  "descTec": "Se al chequeo de ONU, encontramos falla en cables y se procedió a cambiarlos",
+  "resolutionTime": "3 días, 0 horas"
+},
+{
+  "_id": {
+    "$oid": "699cd4686b08752291684106"
+  },
+  "IdClient": {
+    "$oid": "6906502ed51fcc0620b49793"
+  },
+  "IdEmployee": {
+    "$oid": "68fd21670e9a64f2bb4a06b7"
+  },
+  "date": {
+    "$date": "2026-02-23T22:27:52.755Z"
+  },
+  "claimNumber": 788822,
+  "desc": "No funcionan",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21f60e9a64f2bb4a06cb"
+  },
+  "IdService": {
+    "$oid": "699b6f86921d21e218a56e69"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "699cd502cdfe85270eb8dde5"
+  },
+  "IdClient": {
+    "$oid": "6906502ed51fcc0620b49793"
+  },
+  "IdEmployee": {
+    "$oid": "68fd214e0e9a64f2bb4a06b5"
+  },
+  "date": {
+    "$date": "2026-02-23T22:30:26.248Z"
+  },
+  "claimNumber": 641451,
+  "desc": "Las alarmas se encendieron y tuve que apagarlas manualmente",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21fa0e9a64f2bb4a06cd"
+  },
+  "IdService": {
+    "$oid": "699b6f86921d21e218a56e69"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "699cd57b1f1b0dbaa1226434"
+  },
+  "IdClient": {
+    "$oid": "699a23233fb488f8af156d74"
+  },
+  "IdEmployee": {
+    "$oid": "68fd21790e9a64f2bb4a06b9"
+  },
+  "date": {
+    "$date": "2026-02-23T22:32:27.689Z"
+  },
+  "claimNumber": 301656,
+  "desc": "Las probe para ver su funcionamiento y no andan",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21fa0e9a64f2bb4a06cd"
+  },
+  "IdService": {
+    "$oid": "699b6f86921d21e218a56e69"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "699cd6b41f1b0dbaa1226440"
+  },
+  "IdClient": {
+    "$oid": "69064ff8d51fcc0620b4978d"
+  },
+  "IdEmployee": {
+    "$oid": "68fd214e0e9a64f2bb4a06b5"
+  },
+  "date": {
+    "$date": "2026-02-23T22:37:40.176Z"
+  },
+  "claimNumber": 907592,
+  "desc": "Se cortan al instante de su encendido",
+  "state": 2,
+  "Idrecurrence": {
+    "$oid": "68fd21f60e9a64f2bb4a06cb"
+  },
+  "IdService": {
+    "$oid": "699b6f86921d21e218a56e69"
+  },
+  "__v": 0,
+  "Idseverity": {
+    "$oid": "68fd21db0e9a64f2bb4a06c3"
+  },
+  "dateResolution": {
+    "$date": "2026-02-23T22:54:02.740Z"
+  },
+  "descTec": "Se procedió al cambio del producto",
+  "resolutionTime": "0 horas"
+},
+{
+  "_id": {
+    "$oid": "699e194eb063ab3a799a0b7c"
+  },
+  "IdClient": {
+    "$oid": "691cf5949dac5db2abbbe33d"
+  },
+  "IdEmployee": {
+    "$oid": "69122824b3305266a41ec7be"
+  },
+  "date": {
+    "$date": "2026-02-24T21:34:06.507Z"
+  },
+  "claimNumber": 147155,
+  "desc": "Anda trabado y",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21f60e9a64f2bb4a06cb"
+  },
+  "IdService": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "699f7b9bd565a4eda231f240"
+  },
+  "IdClient": {
+    "$oid": "69065041d51fcc0620b49795"
+  },
+  "IdEmployee": {
+    "$oid": "69122824b3305266a41ec7be"
+  },
+  "date": {
+    "$date": "2026-02-25T22:45:47.557Z"
+  },
+  "claimNumber": 320261,
+  "desc": "Hace un ruido mínimo pero que se alcanza a escuchar",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21f60e9a64f2bb4a06cb"
+  },
+  "IdService": {
+    "$oid": "699b6f86921d21e218a56e69"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69a898d89e264229d11735b8"
+  },
+  "IdClient": {
+    "$oid": "69064ff8d51fcc0620b4978d"
+  },
+  "IdEmployee": {
+    "$oid": "68fd21790e9a64f2bb4a06b9"
+  },
+  "date": {
+    "$date": "2026-03-04T20:40:56.931Z"
+  },
+  "claimNumber": 385423,
+  "desc": "Se cortan por momentos",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21f60e9a64f2bb4a06cb"
+  },
+  "IdService": {
+    "$oid": "699b6f4b921d21e218a56e66"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69a899109e264229d11735c4"
+  },
+  "IdClient": {
+    "$oid": "69065041d51fcc0620b49795"
+  },
+  "IdEmployee": {
+    "$oid": "69122824b3305266a41ec7be"
+  },
+  "date": {
+    "$date": "2026-03-04T20:41:52.251Z"
+  },
+  "claimNumber": 588670,
+  "desc": "Hay una baja en la intensidad de señal",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21f60e9a64f2bb4a06cb"
+  },
+  "IdService": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69a89b137e19fc2fce026116"
+  },
+  "IdClient": {
+    "$oid": "69064ff8d51fcc0620b4978d"
+  },
+  "IdEmployee": {
+    "$oid": "69122824b3305266a41ec7be"
+  },
+  "date": {
+    "$date": "2026-03-04T20:50:27.766Z"
+  },
+  "claimNumber": 290950,
+  "desc": "No deja subir archivos en ningún lado",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21f60e9a64f2bb4a06cb"
+  },
+  "IdService": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69a89cd01aa378366a9935fd"
+  },
+  "IdClient": {
+    "$oid": "6906502ed51fcc0620b49793"
+  },
+  "IdEmployee": {
+    "$oid": "69122824b3305266a41ec7be"
+  },
+  "date": {
+    "$date": "2026-03-04T20:57:52.594Z"
+  },
+  "claimNumber": 869161,
+  "desc": "Producen un sonido mínimo todo el tiempo",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21f20e9a64f2bb4a06c9"
+  },
+  "IdService": {
+    "$oid": "699b6f86921d21e218a56e69"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69a89cd31aa378366a993607"
+  },
+  "IdClient": {
+    "$oid": "6906502ed51fcc0620b49793"
+  },
+  "IdEmployee": {
+    "$oid": "68fd214e0e9a64f2bb4a06b5"
+  },
+  "date": {
+    "$date": "2026-03-04T20:57:55.397Z"
+  },
+  "claimNumber": 760213,
+  "desc": "Producen un sonido mínimo todo el tiempo",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21f20e9a64f2bb4a06c9"
+  },
+  "IdService": {
+    "$oid": "699b6f86921d21e218a56e69"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69a89ec0be0006eef07f15b9"
+  },
+  "IdClient": {
+    "$oid": "69065010d51fcc0620b4978f"
+  },
+  "IdEmployee": {
+    "$oid": "69122824b3305266a41ec7be"
+  },
+  "date": {
+    "$date": "2026-03-04T21:06:08.544Z"
+  },
+  "claimNumber": 886014,
+  "desc": "El dispositivo ONU se quemo",
+  "state": 2,
+  "Idrecurrence": {
+    "$oid": "68fd21fa0e9a64f2bb4a06cd"
+  },
+  "IdService": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  },
+  "__v": 0,
+  "Idseverity": {
+    "$oid": "68fd21de0e9a64f2bb4a06c5"
+  },
+  "dateResolution": {
+    "$date": "2026-03-04T21:09:56.144Z"
+  },
+  "descTec": "Se procedió al cambio del producto",
+  "resolutionTime": "0 horas"
+},
+{
+  "_id": {
+    "$oid": "69af350aa25fd479216c3dee"
+  },
+  "IdClient": {
+    "$oid": "691d0b7e39a4ecb8e256fdba"
+  },
+  "IdEmployee": {
+    "$oid": "69122824b3305266a41ec7be"
+  },
+  "date": {
+    "$date": "2026-03-09T21:00:58.475Z"
+  },
+  "claimNumber": 605005,
+  "desc": "No funciona correctamente",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21f60e9a64f2bb4a06cb"
+  },
+  "IdService": {
+    "$oid": "699b6f86921d21e218a56e69"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69af3548a471455b23b43cb1"
+  },
+  "IdClient": {
+    "$oid": "691d0b7e39a4ecb8e256fdba"
+  },
+  "IdEmployee": {
+    "$oid": "69122824b3305266a41ec7be"
+  },
+  "date": {
+    "$date": "2026-03-09T21:02:00.084Z"
+  },
+  "claimNumber": 856519,
+  "desc": "Se corta cada vez que hay viento",
+  "state": 1,
+  "Idrecurrence": {
+    "$oid": "68fd21fa0e9a64f2bb4a06cd"
+  },
+  "IdService": {
+    "$oid": "699b6f9c921d21e218a56e6c"
+  },
+  "__v": 0
+}]

@@ -1,0 +1,428 @@
+[{
+  "_id": {
+    "$oid": "691e286ac2d1b56a9deba34f"
+  },
+  "phone": "5492954230590",
+  "__v": 0,
+  "lastActivity": {
+    "$date": "2026-03-09T21:02:09.350Z"
+  },
+  "messages": [
+    {
+      "direction": "INBOUND",
+      "content": "4",
+      "state": "esperandoCalificacion",
+      "timestamp": {
+        "$date": "2026-02-11T19:06:20.365Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "⭐ ¡Gracias por tu calificación de *4*! Hemos terminado. Su reclamo será atendido a la brevedad.",
+      "state": "FINALIZADO",
+      "timestamp": {
+        "$date": "2026-02-11T19:06:20.562Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "Hola Giovanna Rodríguez 🖤! 👋 (Llamada #11)\n¿Por qué servicio nos contactas esta vez? Responde con uno de los números que te ofrezco:\n\n*1* - Camaras\n*2* - Alarmas\n*3* - Internet\n*4* - Otros",
+      "state": "esperandoServicio",
+      "timestamp": {
+        "$date": "2026-03-09T20:58:40.780Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "1",
+      "state": "esperandoServicio",
+      "timestamp": {
+        "$date": "2026-03-09T20:58:53.014Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "Se apagan solas constantemente",
+      "state": "esperandoDescripcion",
+      "timestamp": {
+        "$date": "2026-03-09T20:59:11.326Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "2",
+      "state": "esperandoRecurrencia",
+      "timestamp": {
+        "$date": "2026-03-09T20:59:17.574Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "Hola Giovanna Rodríguez 🖤! 👋 (Llamada #12)\n¿Por qué servicio nos contactas esta vez? Responde con uno de los números que te ofrezco:\n\n*1* - Camaras\n*2* - Alarmas\n*3* - Internet\n*4* - Otros",
+      "state": "esperandoServicio",
+      "timestamp": {
+        "$date": "2026-03-09T20:59:30.463Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "Hola Giovanna Rodríguez 🖤! 👋 (Llamada #13)\n¿Por qué servicio nos contactas esta vez? Responde con uno de los números que te ofrezco:\n\n*1* - Camaras\n*2* - Alarmas\n*3* - Internet\n*4* - Otros",
+      "state": "esperandoServicio",
+      "timestamp": {
+        "$date": "2026-03-09T21:00:42.116Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "2",
+      "state": "esperandoServicio",
+      "timestamp": {
+        "$date": "2026-03-09T21:00:45.312Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "No funciona correctamente",
+      "state": "esperandoDescripcion",
+      "timestamp": {
+        "$date": "2026-03-09T21:00:53.177Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "2",
+      "state": "esperandoRecurrencia",
+      "timestamp": {
+        "$date": "2026-03-09T21:00:58.277Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "Hola Giovanna Rodríguez 🖤! 👋 (Llamada #14)\n¿Por qué servicio nos contactas esta vez? Responde con uno de los números que te ofrezco:\n\n*1* - Camaras\n*2* - Alarmas\n*3* - Internet\n*4* - Otros",
+      "state": "esperandoServicio",
+      "timestamp": {
+        "$date": "2026-03-09T21:01:44.039Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "3",
+      "state": "esperandoServicio",
+      "timestamp": {
+        "$date": "2026-03-09T21:01:49.863Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "Se corta cada vez que hay viento",
+      "state": "esperandoDescripcion",
+      "timestamp": {
+        "$date": "2026-03-09T21:01:55.503Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "3",
+      "state": "esperandoRecurrencia",
+      "timestamp": {
+        "$date": "2026-03-09T21:01:59.884Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "3",
+      "state": "esperandoCalificacion",
+      "timestamp": {
+        "$date": "2026-03-09T21:02:09.352Z"
+      }
+    }
+  ],
+  "status": "ACTIVE"
+},
+{
+  "_id": {
+    "$oid": "691e53ebc037f53a413a16f5"
+  },
+  "phone": "172112341913681",
+  "status": "ACTIVE",
+  "messages": [
+    {
+      "direction": "INBOUND",
+      "content": "Me quede sin señal",
+      "state": "esperandoDescripcion",
+      "timestamp": {
+        "$date": "2026-02-22T21:41:38.573Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "Gracias por la descripción. Ahora, indícanos el nivel de *recurrencia* de este problema. Responde solo con el número:\n\n*1* = Baja\n*2* = Media\n*3* = Alta",
+      "state": "esperandoRecurrencia",
+      "timestamp": {
+        "$date": "2026-02-22T21:41:39.639Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "2",
+      "state": "esperandoRecurrencia",
+      "timestamp": {
+        "$date": "2026-02-22T21:41:45.245Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "Hubo un error al registrar el reclamo. Por favor, inténtalo de nuevo más tarde.",
+      "state": "ERROR_CLAIM_SAVE",
+      "timestamp": {
+        "$date": "2026-02-22T21:41:45.462Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "Hola Andrea Borthiry! 👋 Veo que esta es tu llamada n° 7.\n¿Por qué servicio nos contactas? Responde con el número:\n\n",
+      "state": "esperandoServicio",
+      "timestamp": {
+        "$date": "2026-02-22T21:50:45.565Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "Hola Andrea Borthiry! 👋 Veo que esta es tu llamada n° 8.\n¿Por qué servicio nos contactas? Responde con el número:\n\n",
+      "state": "esperandoServicio",
+      "timestamp": {
+        "$date": "2026-02-22T21:58:05.566Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "Hola Andrea Borthiry! 👋 Veo que esta es tu llamada n° 9.\n¿Por qué servicio nos contactas? Responde con el número:\n\n",
+      "state": "esperandoServicio",
+      "timestamp": {
+        "$date": "2026-02-22T22:01:42.039Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "Hola Andrea Borthiry! 👋 Veo que esta es tu llamada n° 10.\n¿Por qué servicio nos contactas? Responde con el número:\n\n*1* = Camaras\n*2* = Alarmas\n*3* = Internet\n*4* = Otra razon",
+      "state": "esperandoServicio",
+      "timestamp": {
+        "$date": "2026-02-22T22:07:58.402Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "3",
+      "state": "esperandoServicio",
+      "timestamp": {
+        "$date": "2026-02-22T22:08:02.054Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "Tengo baja señal",
+      "state": "esperandoDescripcion",
+      "timestamp": {
+        "$date": "2026-02-22T22:08:15.827Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "3",
+      "state": "esperandoRecurrencia",
+      "timestamp": {
+        "$date": "2026-02-22T22:08:19.612Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "4",
+      "state": "esperandoCalificacion",
+      "timestamp": {
+        "$date": "2026-02-22T22:08:27.497Z"
+      }
+    }
+  ],
+  "lastActivity": {
+    "$date": "2026-02-22T22:08:27.496Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "699a23053fb488f8af156d62"
+  },
+  "phone": "32414202097903",
+  "status": "ACTIVE",
+  "messages": [
+    {
+      "direction": "OUTBOUND",
+      "content": "Hola Roberto Diaz! 👋 Soy tu asistente de reclamos. Para comenzar, por favor, indícanos tu *DNI* o número de identificación.",
+      "state": "esperandoDni",
+      "timestamp": {
+        "$date": "2026-02-21T21:26:29.088Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "653876",
+      "state": "esperandoDni",
+      "timestamp": {
+        "$date": "2026-02-21T21:26:44.906Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "✅ DNI registrado. Ahora, por favor, indícanos tu *dirección* completa.",
+      "state": "esperandoDireccion",
+      "timestamp": {
+        "$date": "2026-02-21T21:26:45.054Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "34445g66667",
+      "state": "esperandoDireccion",
+      "timestamp": {
+        "$date": "2026-02-21T21:26:53.332Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "✅ Dirección registrada. Finalmente, ¿cuál es el *tipo de reclamo*? Responde solo con el número:\n\n*1* = Tecnico\n*2* = Comercial\n*3* = Industrial",
+      "state": "esperandoTipoReclamo",
+      "timestamp": {
+        "$date": "2026-02-21T21:26:53.479Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "3",
+      "state": "esperandoTipoReclamo",
+      "timestamp": {
+        "$date": "2026-02-21T21:26:59.693Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "¡Perfecto! Hemos completado tu registro como cliente (*Industrial*).\n\nAhora, por favor, describe *brevemente tu problema*.",
+      "state": "esperandoDescripcion",
+      "timestamp": {
+        "$date": "2026-02-21T21:26:59.948Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "Conexion",
+      "state": "esperandoDescripcion",
+      "timestamp": {
+        "$date": "2026-02-21T21:27:36.275Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "Gracias por la descripción. Ahora, indícanos el nivel de *recurrencia* de este problema. Responde solo con el número:\n\n*1* = Baja\n*2* = Media\n*3* = Alta",
+      "state": "esperandoRecurrencia",
+      "timestamp": {
+        "$date": "2026-02-21T21:27:36.429Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "1",
+      "state": "esperandoRecurrencia",
+      "timestamp": {
+        "$date": "2026-02-21T21:27:45.497Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "✅ ¡Reclamo Registrado! Su número es: *9284*.\n\nAntes de terminar, por favor, *califica mi servicio* como bot del 1 (Muy Malo) al 5 (Excelente).",
+      "state": "esperandoCalificacion",
+      "timestamp": {
+        "$date": "2026-02-21T21:27:48.180Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "5",
+      "state": "esperandoCalificacion",
+      "timestamp": {
+        "$date": "2026-02-21T21:28:06.071Z"
+      }
+    },
+    {
+      "direction": "OUTBOUND",
+      "content": "⭐ ¡Gracias por tu calificación de *5*! Hemos terminado. Su reclamo será atendido a la brevedad.",
+      "state": "FINALIZADO",
+      "timestamp": {
+        "$date": "2026-02-21T21:28:06.289Z"
+      }
+    }
+  ],
+  "lastActivity": {
+    "$date": "2026-02-21T21:28:06.288Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "699e1922b063ab3a799a0b6d"
+  },
+  "phone": "219039154630867",
+  "status": "ACTIVE",
+  "messages": [
+    {
+      "direction": "OUTBOUND",
+      "content": "Hola .....! 👋 (Llamada #2)\n¿Por qué servicio nos contactas? Responde con el número:\n\n*1* - Camaras\n*2* - Alarmas\n*3* - Internet\n*4* - Otros",
+      "state": "esperandoServicio",
+      "timestamp": {
+        "$date": "2026-02-24T21:33:22.491Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "3",
+      "state": "esperandoServicio",
+      "timestamp": {
+        "$date": "2026-02-24T21:33:32.537Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "Anda mal",
+      "state": "esperandoDescripcion",
+      "timestamp": {
+        "$date": "2026-02-24T21:33:39.073Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "Anda trabado y",
+      "state": "esperandoDescripcion",
+      "timestamp": {
+        "$date": "2026-02-24T21:33:58.485Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "2",
+      "state": "esperandoRecurrencia",
+      "timestamp": {
+        "$date": "2026-02-24T21:34:06.385Z"
+      }
+    },
+    {
+      "direction": "INBOUND",
+      "content": "5",
+      "state": "esperandoCalificacion",
+      "timestamp": {
+        "$date": "2026-02-24T21:34:14.035Z"
+      }
+    }
+  ],
+  "lastActivity": {
+    "$date": "2026-02-24T21:34:14.034Z"
+  },
+  "__v": 0
+}]
