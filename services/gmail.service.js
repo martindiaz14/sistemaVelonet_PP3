@@ -11,7 +11,8 @@ const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
 const transporter = nodemailer.createTransport({
     service: 'gmail', 
     auth: {
-
+        user: process.env.EMAIL_USER || 'martindiazb14@gmail.com', 
+        pass: process.env.EMAIL_PASS || 
     }
 });
 
